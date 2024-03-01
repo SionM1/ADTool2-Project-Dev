@@ -219,20 +219,51 @@ public class ADTreeCanvas<Type> extends AbstractTreeCanvas {
     return root.isLeaf();
   }
 
+  private Node lastSelectedLeafNode = null;
+
+  public void highlightPath(Node leafNode) {
+    if (leafNode == null) {
+      return;
+    }
+    // Check if the same leaf node is clicked again to toggle the selection
+    if (leafNode.equals(lastSelectedLeafNode)) {
+      // Deselect the path from this leaf to the root
+      deselectPath(leafNode);
+      lastSelectedLeafNode = null; // Reset the last selected leaf node
+    } else {
+      // Select the path from this leaf to the root
+      selectPath(leafNode);
+      lastSelectedLeafNode = leafNode; // Remember the last selected leaf node
+    }
+    repaint();
+  }
+
+  // slect path is called when the user clicks on a leaf node
+  private void selectPath(Node node) {
+    if (node.getParent() != null) {
+      selectPath(node.getParent());
+    }
+    node.setSelected(true);
+  }
+
+  // deselect path is called when the user clicks on a leaf node again to deselect
+  // the path
+  private void deselectPath(Node node) {
+    if (node.getParent() != null) {
+      deselectPath(node.getParent());
+    }
+    node.setSelected(false);
+  }
+
   public void selectBranch(Node node) {
     if (node == null) {
       return; // Nothing to select if the node is null
     }
     // Perform the selection logic here
-    // For example, you might want to highlight the node and its descendants
-    // and update the selection state in your data model.
     selectNodeAndDescendants(node);
 
     // Redraw the tree to show the new selection state
     repaint();
-
-    // Optionally, notify other parts of the application if needed
-    // fireTreeSelectionChanged(node);
   }
 
   private void selectNodeAndDescendants(Node node) {

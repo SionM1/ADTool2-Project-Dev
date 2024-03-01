@@ -40,7 +40,7 @@ public class History {
         undoList.removeLast();
       }
       redoList.clear();
-      Debug.log("Added undo action:"+action.getName());
+      Debug.log("Added undo action:" + action.getName());
     }
   }
 
@@ -63,13 +63,12 @@ public class History {
   public void undo(AbstractTreeCanvas canvas) {
     EditAction action = undoList.poll();
     if (action != null) {
-      Debug.log("Undo  action:"+action.getName());
+      Debug.log("Undo  action:" + action.getName());
       noUpdates = true;
       action.undo(canvas);
       redoList.addFirst(action);
       noUpdates = false;
-    }
-    else {
+    } else {
       Debug.log("No Undo  action available.");
     }
   }

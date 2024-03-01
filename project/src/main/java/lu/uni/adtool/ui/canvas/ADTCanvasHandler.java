@@ -91,11 +91,11 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
           case KeyEvent.VK_S:
             ((ADTreeCanvas<?>) canvas).addSibling(node, !e.isShiftDown());
             break;
-          case KeyEvent.VK_B: // Assuming 'B' is the key for branch selection
+          case KeyEvent.VK_B: // key for branch selection
             // print line ctrl b has been pressed
             System.out.println("ctrl b pressed");
             if (node != null) {
-              // Call the method responsible for branch selection
+              // Method responsible for branch selection
               ((ADTreeCanvas<?>) canvas).selectBranch(node);
             }
             break;
@@ -174,6 +174,10 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
         } else {
           setFocus(node);
         }
+        if (node.isLeaf()) {
+          ((ADTreeCanvas<?>) canvas).highlightPath(node);
+        }
+
       }
     }
   }
@@ -184,6 +188,7 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
    * @param node
    *             node to which we set focus.
    */
+
   public void setFocus(final Node node) {
     if (node != null) {
       final Node parent = canvas.getParentNode(node);
