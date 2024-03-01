@@ -1,0 +1,24 @@
+{
+  "commands": {
+    "Hello": {
+      "prompt": "Evaluate code and troubleshhot, fix code and provide correct code to implement new feature",
+      "context": {
+        "codebase": true,
+        "selection": true,
+        "currentDir": true,
+        "openTabs": true,
+        "command": "",
+        "none": false
+      },
+      "mode": "ask"
+    },
+    "CODEBASE": {
+      "prompt": "FIX AND IMPLEMENT NEW CODE",
+      "context": {
+        "codebase": true,
+        "currentDir": true,
+        "openTabs": true
+      }
+    }
+  }
+}

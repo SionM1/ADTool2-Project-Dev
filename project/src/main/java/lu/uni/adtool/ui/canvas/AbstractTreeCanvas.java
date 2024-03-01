@@ -143,8 +143,7 @@ public abstract class AbstractTreeCanvas extends JPanel
   public boolean isSand() {
     if (tree != null) {
       return tree.getLayout().isSand();
-    }
-    else {
+    } else {
       return true;
     }
   }
@@ -199,9 +198,11 @@ public abstract class AbstractTreeCanvas extends JPanel
       this.repaint();
     }
   }
+
   public NodeLayout getNodeLayout() {
     return this.nodeLayout;
   }
+
   public abstract void setScrollPane(JScrollPane pane);
 
   public abstract void repaintAll();
@@ -237,8 +238,7 @@ public abstract class AbstractTreeCanvas extends JPanel
         Point2D point = viewTransform.inverseTransform(new Point2D.Double(x, y), null);
         x = point.getX();
         y = point.getY();
-      }
-      catch (NoninvertibleTransformException e) {
+      } catch (NoninvertibleTransformException e) {
         System.err.println("Cannot translate click point!!");
       }
       if (x > sizeX || y > sizeY || x < 0 || y < 0) {
@@ -248,17 +248,17 @@ public abstract class AbstractTreeCanvas extends JPanel
       for (Node node : bufferedLayout.keySet()) {
         Rectangle2D rect = bufferedLayout.get(node);
         switch (Options.canv_ShapeDef) {
-        case RECTANGLE:
-          shape = rect;
-          break;
-        case OVAL:
-          shape = new Ellipse2D.Double(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-          break;
-        // case ROUNDRECT:
-        default:
-          shape = new RoundRectangle2D.Double(rect.getX(), rect.getY(), rect.getWidth(),
-              rect.getHeight(), Options.canv_ArcSize, Options.canv_ArcSize);
-          break;
+          case RECTANGLE:
+            shape = rect;
+            break;
+          case OVAL:
+            shape = new Ellipse2D.Double(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+            break;
+          // case ROUNDRECT:
+          default:
+            shape = new RoundRectangle2D.Double(rect.getX(), rect.getY(), rect.getWidth(),
+                rect.getHeight(), Options.canv_ArcSize, Options.canv_ArcSize);
+            break;
         }
         if (shape.contains(x, y)) {
           return node;
@@ -346,7 +346,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Sets the scale for this instance.
    *
    * @param scale
-   *          The scale.
+   *              The scale.
    */
   public void setScale(double scale) {
     this.scale = scale;
@@ -378,7 +378,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Sets the focus for the node.
    *
    * @param focused
-   *          The focused node
+   *                The focused node
    */
   public void setFocus(Node focused) {
     if (this.focused != null) {
@@ -436,16 +436,14 @@ public abstract class AbstractTreeCanvas extends JPanel
             pjob.print();
             return true;
           }
-        }
-        else {
+        } else {
           PageFormat page = pjob.pageDialog(getPageFormat(0));
           if (page != getPageFormat(0)) {
             setPageFormat(page);
             return true;
           }
         }
-      }
-      catch (PrinterException exc) {
+      } catch (PrinterException exc) {
         reportError(exc.getLocalizedMessage());
       }
     }
@@ -456,9 +454,9 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Scrolls canvas by a given vector.
    *
    * @param xShift
-   *          x-coordinate of the point.
+   *               x-coordinate of the point.
    * @param yShift
-   *          y-coordinate of the point.
+   *               y-coordinate of the point.
    * @return returns by how much canvas was really scrolled
    */
   public Point scrollTo(double xShift, double yShift) {
@@ -475,7 +473,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Removes the subtree with node as root.
    *
    * @param node
-   *          root of a subtree.
+   *             root of a subtree.
    */
   public void removeTree(Node node) {
     if (!node.equals(tree.getRoot(true))) {
@@ -507,8 +505,7 @@ public abstract class AbstractTreeCanvas extends JPanel
   public Point2D transform(Point2D point) {
     try {
       return viewTransform.inverseTransform(point, null);
-    }
-    catch (NoninvertibleTransformException e) {
+    } catch (NoninvertibleTransformException e) {
       return point;
     }
   }
@@ -517,15 +514,14 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Sets the viewPortSize for this instance.
    *
    * @param viewPortSize
-   *          The viewPortSize.
+   *                     The viewPortSize.
    */
   public void setViewPortSize(Dimension viewPortSize) {
     this.viewPortSize = viewPortSize;
     // make up for dissapearing scrollbars
     if (this.scrollPane != null) {
       if (this.scrollPane.getHorizontalScrollBar().isVisible()) {
-        this.viewPortSize.height +=
-            this.scrollPane.getHorizontalScrollBar().getPreferredSize().height;
+        this.viewPortSize.height += this.scrollPane.getHorizontalScrollBar().getPreferredSize().height;
       }
       if (this.scrollPane.getVerticalScrollBar().isVisible()) {
         this.viewPortSize.width += this.scrollPane.getVerticalScrollBar().getPreferredSize().width;
@@ -547,7 +543,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Sets the moveX for this instance.
    *
    * @param moveX
-   *          The moveX.
+   *              The moveX.
    */
   public void setMoveX(double moveX) {
     if ((moveX) < 0) {
@@ -570,7 +566,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Sets the moveY for this instance.
    *
    * @param moveY
-   *          The moveY.
+   *              The moveY.
    */
   public void setMoveY(double moveY) {
     if ((moveY) < 0) {
@@ -594,15 +590,14 @@ public abstract class AbstractTreeCanvas extends JPanel
    *
    */
   protected void recalculateLayout() {
-//     Debug.log("tree " + tree);
+    // Debug.log("tree " + tree);
     this.sizeX = 0;
     this.sizeY = 0;
     bufferedLayout = null;
     NodeExtentProvider<Node> extentProvider;
     if (localExtentProvider) {
       extentProvider = new LocalExtentProvider(this);
-    }
-    else {
+    } else {
       Debug.log("tree:" + tree);
       extentProvider = tree.getSharedExtentProvider();
     }
@@ -610,8 +605,8 @@ public abstract class AbstractTreeCanvas extends JPanel
         tree.getTreeForLayout(), (NodeExtentProvider<Node>) extentProvider, configuration);
     bufferedLayout = treeLayout.getNodeBounds();
     for (Rectangle2D.Double rect : bufferedLayout.values()) {
-       sizeX = Math.max(sizeX, rect.getMaxX());
-       sizeY = Math.max(sizeY, rect.getMaxY());
+      sizeX = Math.max(sizeX, rect.getMaxX());
+      sizeY = Math.max(sizeY, rect.getMaxY());
     }
     if (this.nodeLayout == NodeLayout.RADIAL) {
       Node root = this.tree.getRoot(false);
@@ -622,20 +617,22 @@ public abstract class AbstractTreeCanvas extends JPanel
       double maxX = Double.MIN_VALUE;
       double minY = Double.MAX_VALUE;
       double maxY = Double.MIN_VALUE;
-      for (Node node: bufferedLayout.keySet()) {
+      for (Node node : bufferedLayout.keySet()) {
         rect = bufferedLayout.get(node);
-        double angle = -((rect.getCenterX() - radialX)/sizeX)*2*Math.PI;
+        double angle = -((rect.getCenterX() - radialX) / sizeX) * 2 * Math.PI;
         double r = Options.canv_radialRadiusScale * (rect.getCenterY() - radialY);
-//         Debug.log("r:" + r + " angle:"+angle);
-//         Debug.log("getX:" + rect.getX() + " getY:"+rect.getY() + " w:"+ rect.getWidth()+ " h:"+ rect.getHeight()+ " name:" + node.getName());
-        rect.setRect(r*Math.cos(angle) + radialX - rect.getWidth()/2, r*Math.sin(angle) + radialY- rect.getHeight()/2, rect.getWidth(), rect.getHeight());
+        // Debug.log("r:" + r + " angle:"+angle);
+        // Debug.log("getX:" + rect.getX() + " getY:"+rect.getY() + " w:"+
+        // rect.getWidth()+ " h:"+ rect.getHeight()+ " name:" + node.getName());
+        rect.setRect(r * Math.cos(angle) + radialX - rect.getWidth() / 2,
+            r * Math.sin(angle) + radialY - rect.getHeight() / 2, rect.getWidth(), rect.getHeight());
         minX = Math.min(minX, rect.getMinX());
         minY = Math.min(minY, rect.getMinY());
         maxX = Math.max(maxX, rect.getMaxX());
         maxY = Math.max(maxY, rect.getMaxY());
         bufferedLayout.put(node, rect);
       }
-      for (Node node: bufferedLayout.keySet()) {
+      for (Node node : bufferedLayout.keySet()) {
         rect = bufferedLayout.get(node);
         rect.setRect(rect.getX() - minX, rect.getY() - minY, rect.getWidth(), rect.getHeight());
       }
@@ -726,11 +723,9 @@ public abstract class AbstractTreeCanvas extends JPanel
       g2.dispose();
       document.close();
       fileStream.close();
-    }
-    catch (DocumentException e) {
+    } catch (DocumentException e) {
       reportError(Options.getMsg("error.exportingpdf") + e);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       reportError(Options.getMsg("error.exportingpdf") + e);
     }
     setScale(oldScale);
@@ -740,14 +735,13 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Save tree as an image
    *
    * @param fileStream
-   *          stream to which we write
+   *                   stream to which we write
    * @param formatName
-   *          informal name of the format e. g. "jpg" or "png"
+   *                   informal name of the format e. g. "jpg" or "png"
    */
   public void createImage(FileOutputStream fileStream, String formatName) {
     Dimension dim = getPreferredSize();
-    BufferedImage bufferedImage =
-        new BufferedImage(dim.width, dim.height, BufferedImage.TYPE_INT_RGB);
+    BufferedImage bufferedImage = new BufferedImage(dim.width, dim.height, BufferedImage.TYPE_INT_RGB);
     Graphics2D g2d = bufferedImage.createGraphics();
     g2d.setColor(Options.canv_BackgroundColor);
     Rectangle r = new Rectangle(dim);
@@ -759,8 +753,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     try {
       ImageIO.write(bufferedImage, formatName, fileStream);
       fileStream.close();
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       reportError(Options.getMsg("error.export.fail") + e);
     }
   }
@@ -769,24 +762,22 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Save tree in XML format
    *
    * @param fileStream
-   *          stream to which we write
+   *                   stream to which we write
    */
   public void createXml(FileOutputStream fileStream) {
     XmlConverter converter = new XmlConverter();
     try {
       TreeLayout layout = tree.getLayout();
       if (Options.main_saveDomains) {
-        Set<Integer> ids= new TreeSet<Integer>();
+        Set<Integer> ids = new TreeSet<Integer>();
         for (ValuationDomain values : layout.getDomains()) {
           ids.add(values.getDomainId());
         }
         converter.exportTo(fileStream, layout, ids);
-      }
-      else {
+      } else {
         converter.exportTo(fileStream, layout, null);
       }
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       reportError(Options.getMsg("error.xmlexport.fail") + e);
     }
   }
@@ -795,15 +786,14 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Save tree in Latex format
    *
    * @param fileStream
-   *          stream to which we write
+   *                   stream to which we write
    */
   public void createLatex(FileOutputStream fileStream) {
     XmlConverter converter = new XmlConverter();
     try {
       TreeLayout layout = tree.getLayout();
       converter.exportLatex(fileStream, layout);
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       reportError(Options.getMsg("error.latexexport.fail") + e);
     }
   }
@@ -814,8 +804,7 @@ public abstract class AbstractTreeCanvas extends JPanel
   public String getTermsString() {
     if (this.tree.getRoot(true) instanceof SandNode) {
       return ((SandNode) this.tree.getRoot(true)).toTerms();
-    }
-    else {
+    } else {
       return ((ADTNode) this.tree.getRoot(true)).toTerms();
     }
   }
@@ -824,8 +813,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     Node root = this.tree.getRoot(true);
     if (root instanceof SandNode) {
       fileStream.write(((SandNode) root).toTerms().getBytes(Charset.forName("UTF-8")));
-    }
-    else {
+    } else {
       fileStream.write(((ADTNode) root).toTerms().getBytes(Charset.forName("UTF-8")));
     }
     fileStream.close();
@@ -891,8 +879,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     if (Options.print_perserveAspectRatio) {
       if (printScaleX < printScaleY) {
         printScaleY = printScaleX;
-      }
-      else {
+      } else {
         printScaleX = printScaleY;
       }
     }
@@ -913,16 +900,15 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Paint the canvas starting at startNode.
    *
    * @param g2
-   *          graphics context.
+   *                  graphics context.
    * @param startNode
-   *          root node from which we paint.
+   *                  root node from which we paint.
    */
   public void paintComponent(final Graphics2D g2, Node startNode) {
     g2.setStroke(basicStroke);
     if (Options.canv_DoAntialiasing) {
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    }
-    else {
+    } else {
       g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
     }
     paintEdges(g2, startNode);
@@ -947,8 +933,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     Rectangle r = g2.getClipBounds();
     if (r != null) {
       g2.fillRect(r.x, r.y, r.width, r.height);
-    }
-    else {
+    } else {
       Debug.log("null clip bounds");
     }
     g2.transform(viewTransform);
@@ -972,8 +957,7 @@ public abstract class AbstractTreeCanvas extends JPanel
       if (text != null) {
         undo.setEnabled(true);
         undo.setName(text);
-      }
-      else {
+      } else {
         undo.setEnabled(false);
         undo.setName(Options.getMsg("edit.undo.txt"));
       }
@@ -981,13 +965,11 @@ public abstract class AbstractTreeCanvas extends JPanel
       if (text != null) {
         redo.setEnabled(true);
         redo.setName(text);
-      }
-      else {
+      } else {
         redo.setEnabled(false);
         redo.setName(Options.getMsg("edit.redo.txt"));
       }
-    }
-    else {
+    } else {
       undo.setEnabled(false);
       undo.setName(Options.getMsg("edit.undo.txt"));
       redo.setEnabled(false);
@@ -995,7 +977,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     }
   }
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public void addDomain(Domain<Ring> domain) {
     TreeDockable currentTree = (TreeDockable) this.controller.getControl()
         .getMultipleDockable(TreeDockable.TREE_ID + Integer.toString(this.getTreeId()));
@@ -1006,8 +988,7 @@ public abstract class AbstractTreeCanvas extends JPanel
       DomainFactory factory = controller.getFrame().getDomainFactory();
       if (domain instanceof SandDomain) {
         d = factory.read(new ValuationDomain(this.getTreeId(), domainId, (SandDomain) domain));
-      }
-      else {
+      } else {
         d = factory.read(new ValuationDomain(this.getTreeId(), domainId, (AdtDomain) domain));
       }
       Debug.log("Adding domain to control with id:" + d.getUniqueId());
@@ -1070,7 +1051,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Sets the pageFormat for this instance.
    *
    * @param pageFormat
-   *          The pageFormat.
+   *                   The pageFormat.
    */
   public void setPageFormat(PageFormat pageFormat) {
     this.pageFormat = pageFormat;
@@ -1097,7 +1078,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    * @param g
    * @param node
    * @param textCol
-   *          color for the text.
+   *                color for the text.
    */
   protected void paintLabels(final Graphics2D g, final Node node, final Color textCol) {
     final Rectangle2D.Double box = bufferedLayout.get(node);
@@ -1135,26 +1116,27 @@ public abstract class AbstractTreeCanvas extends JPanel
     fillCol = getFillColor(node);
     // ATTACKER type
     if (node instanceof ADTNode) {
-      ADTNode.Role defender =
-          tree.getLayout().getSwitchRole() ? ADTNode.Role.PROPONENT : ADTNode.Role.OPPONENT;
+      ADTNode.Role defender = tree.getLayout().getSwitchRole() ? ADTNode.Role.PROPONENT : ADTNode.Role.OPPONENT;
       if (((ADTNode) node).getRole() == defender) {
         borderCol = Options.canv_BorderColorDef;
         textCol = Options.canv_TextColorDef;
         shape = Options.canv_ShapeDef;
-      }
-      else {
+      } else {
         // ATTACKER type
         borderCol = Options.canv_BorderColorAtt;
         textCol = Options.canv_TextColorAtt;
         shape = Options.canv_ShapeAtt;
       }
-    }
-    else {
+    } else {
       borderCol = Options.canv_BorderColorAtt;
       textCol = Options.canv_TextColorAtt;
       shape = Options.canv_ShapeAtt;
     }
-
+    // Before drawing the box, check if the node is selected and modify the fill
+    // color
+    if (node.isSelected()) {
+      fillCol = new Color(255, 215, 0); // change color to indicate selection, for example
+    }
     // get position of node
     final Rectangle2D.Double box = bufferedLayout.get(node);
     int x = (int) box.x;
@@ -1177,26 +1159,31 @@ public abstract class AbstractTreeCanvas extends JPanel
     g.setColor(fillCol);
     g.setStroke(basicStroke);
     switch (shape) {
-    case RECTANGLE:
-      g.fillRect(x, y, (int) box.width - 1, (int) box.height - 1);
-      g.setColor(borderCol);
-      g.drawRect(x, y, (int) box.width - 1, (int) box.height - 1);
-      break;
-    case OVAL:
-      g.fillOval(x, y, (int) box.width - 1, (int) box.height - 1);
-      g.setColor(borderCol);
-      g.drawOval(x, y, (int) box.width - 1, (int) box.height - 1);
-      break;
-    // case ROUNDRECT:
-    // default:
-    // g.fillRoundRect(x, y, (int) box.width - 1, (int) box.height - 1,
-    // Options.canv_ArcSize,
-    // Options.canv_ArcSize);
-    // g.setColor(borderCol);
-    // g.drawRoundRect(x, y, (int) box.width - 1, (int) box.height - 1,
-    // Options.canv_ArcSize,
-    // Options.canv_ArcSize);
-    // break;
+      case RECTANGLE:
+        g.fillRect(x, y, (int) box.width - 1, (int) box.height - 1);
+        g.setColor(borderCol);
+        g.drawRect(x, y, (int) box.width - 1, (int) box.height - 1);
+        break;
+      case OVAL:
+        g.fillOval(x, y, (int) box.width - 1, (int) box.height - 1);
+        g.setColor(borderCol);
+        g.drawOval(x, y, (int) box.width - 1, (int) box.height - 1);
+        break;
+      // case ROUNDRECT:
+      // default:
+      // g.fillRoundRect(x, y, (int) box.width - 1, (int) box.height - 1,
+      // Options.canv_ArcSize,
+      // Options.canv_ArcSize);
+      // g.setColor(borderCol);
+      // g.drawRoundRect(x, y, (int) box.width - 1, (int) box.height - 1,
+      // Options.canv_ArcSize,
+      // Options.canv_ArcSize);
+      // break;
+    }
+    if (node.isSelected()) {
+      g.setStroke(new BasicStroke(3)); // thicker border for selected nodes
+      g.setColor(Color.RED); // border color for selected nodes
+      g.drawRect(x, y, (int) box.width - 1, (int) box.height - 1); // draw the rectangle border
     }
     paintLabels(g, node, textCol);
     for (Node child : tree.getChildrenList(node, false)) {
@@ -1220,7 +1207,7 @@ public abstract class AbstractTreeCanvas extends JPanel
       int noChildren = children.size();
       boolean drawArc = false;
       boolean drawArrow = false;
-      if (parent instanceof ADTNode && ((ADTNode)parent).isCountered()) {
+      if (parent instanceof ADTNode && ((ADTNode) parent).isCountered()) {
         noChildren--;
       }
       if (parent instanceof SandNode) {
@@ -1231,8 +1218,7 @@ public abstract class AbstractTreeCanvas extends JPanel
             drawArrow = true;
           }
         }
-      }
-      else if (parent instanceof ADTNode) {
+      } else if (parent instanceof ADTNode) {
         if ((((ADTNode) parent).getType() == ADTNode.Type.AND_OPP
             || ((ADTNode) parent).getType() == ADTNode.Type.AND_PRO) && noChildren > 1) {
           drawArc = true;
@@ -1242,14 +1228,13 @@ public abstract class AbstractTreeCanvas extends JPanel
         double maxX = 0;
         double minX = x1;
         Rectangle2D.Double b2 = new Rectangle2D.Double(0, 0, 0, 0);
-        //paint edges
+        // paint edges
         for (Node child : children) {
           b2 = bufferedLayout.get(child);
           if (parent instanceof ADTNode
               && ((ADTNode) child).getRole() != ((ADTNode) parent).getRole()) {
             g2.setStroke(counterStroke);
-          }
-          else {
+          } else {
             g2.setStroke(basicStroke);
           }
           if (!(parent instanceof ADTNode
@@ -1294,13 +1279,12 @@ public abstract class AbstractTreeCanvas extends JPanel
                 x1 + a * cos / (double) 2 + 8 * cos3, y1 - b * sin / (double) 2 - 8 * sin3));
           }
         }
-      }
-      else { //RADIAL layout
+      } else { // RADIAL layout
         if (children.size() > 0) {
           Rectangle2D.Double bParen = bufferedLayout.get(parent);
           double tempX = bParen.getCenterX() - radialX;
           double tempY = bParen.getCenterY() - radialY;
-          double parenR = Math.sqrt((tempX*tempX + tempY*tempY));
+          double parenR = Math.sqrt((tempX * tempX + tempY * tempY));
           double firstAngle = Double.MAX_VALUE;
           double counterAngle = Double.MIN_VALUE;
           double lastAngle = Double.MIN_VALUE;
@@ -1310,7 +1294,7 @@ public abstract class AbstractTreeCanvas extends JPanel
           double meanY = 0;
 
           int i = 1;
-          //draw lines
+          // draw lines
           for (Node child : children) {
             Rectangle2D.Double b2 = bufferedLayout.get(child);
             tempX = b2.getCenterX() - radialX;
@@ -1318,78 +1302,84 @@ public abstract class AbstractTreeCanvas extends JPanel
             meanX = meanX + tempX;
             meanY = meanY + tempY;
             if (r < 0) {
-              //assumnig radius r is the same for all children
-              r = Math.sqrt(tempX*tempX + tempY*tempY);
-              halfR = (parenR + r)/2;
+              // assumnig radius r is the same for all children
+              r = Math.sqrt(tempX * tempX + tempY * tempY);
+              halfR = (parenR + r) / 2;
             }
-            double angle = (Math.atan2(-tempY, tempX) + 2 * Math.PI) % (2*Math.PI);
-//             Debug.log("angle="+Double.toString(Math.toDegrees(angle)) + " i:"+Integer.toString(i) + " child.size():"+Integer.toString( children.size())+ " label:"+child.getName());
+            double angle = (Math.atan2(-tempY, tempX) + 2 * Math.PI) % (2 * Math.PI);
+            // Debug.log("angle="+Double.toString(Math.toDegrees(angle)) + "
+            // i:"+Integer.toString(i) + " child.size():"+Integer.toString(
+            // children.size())+ " label:"+child.getName());
             if (i == 1) {
               firstAngle = angle;
             }
             if (i == children.size()) {
               counterAngle = angle;
             }
-            if (i == noChildren ) {
+            if (i == noChildren) {
               lastAngle = angle;
             }
             if (i > noChildren) {
               g2.setStroke(counterStroke);
-            }
-            else {
+            } else {
               g2.setStroke(basicStroke);
             }
-            g2.drawLine((int)(r*Math.cos(angle) + radialX), (int)(-r*Math.sin(angle) + radialY), (int)(halfR*Math.cos(angle) + radialX), (int)(-halfR*Math.sin(angle) + radialY));
+            g2.drawLine((int) (r * Math.cos(angle) + radialX), (int) (-r * Math.sin(angle) + radialY),
+                (int) (halfR * Math.cos(angle) + radialX), (int) (-halfR * Math.sin(angle) + radialY));
             i = i + 1;
           }
           while (counterAngle < firstAngle) {
-            counterAngle += 2*Math.PI;
+            counterAngle += 2 * Math.PI;
           }
           if (lastAngle == firstAngle) {
-            lastAngle = (firstAngle + counterAngle)/2;
+            lastAngle = (firstAngle + counterAngle) / 2;
           }
           if (noChildren > 0) {
             g2.setStroke(basicStroke);
           }
-          double midAngle = (firstAngle + counterAngle)/2;
-          g2.drawLine((int)(parenR*Math.cos(midAngle) + radialX), (int)(-parenR*Math.sin(midAngle) + radialY), (int)(halfR*Math.cos(midAngle) + radialX), (int)(-halfR*Math.sin(midAngle) + radialY));
+          double midAngle = (firstAngle + counterAngle) / 2;
+          g2.drawLine((int) (parenR * Math.cos(midAngle) + radialX), (int) (-parenR * Math.sin(midAngle) + radialY),
+              (int) (halfR * Math.cos(midAngle) + radialX), (int) (-halfR * Math.sin(midAngle) + radialY));
 
-          meanX = meanX/i;
-          meanY = meanY/i;
-          //draw arc for non-countered children
+          meanX = meanX / i;
+          meanY = meanY / i;
+          // draw arc for non-countered children
           if (noChildren > 0) {
             Arc2D arc = new Arc2D.Double(radialX - halfR,
-                                       radialY - halfR,
-                                       2*halfR, 2*halfR,
-                                       Math.toDegrees(firstAngle),
-                                       Math.toDegrees((lastAngle - firstAngle + 2*Math.PI)%(2*Math.PI)),
-                                       Arc2D.OPEN);
+                radialY - halfR,
+                2 * halfR, 2 * halfR,
+                Math.toDegrees(firstAngle),
+                Math.toDegrees((lastAngle - firstAngle + 2 * Math.PI) % (2 * Math.PI)),
+                Arc2D.OPEN);
             g2.draw(arc);
           }
-          //draw arc for OR operator
+          // draw arc for OR operator
           if (drawArc) {
-            Arc2D arc = new Arc2D.Double(radialX - halfR - Options.canv_ArcPadding/2,
-                                       radialY - halfR - Options.canv_ArcPadding/2,
-                                       2*halfR + Options.canv_ArcPadding, 2*halfR + Options.canv_ArcPadding,
-                                       Math.toDegrees(firstAngle),
-                                       Math.toDegrees((lastAngle - firstAngle + 2*Math.PI)%(2*Math.PI)),
-                                       Arc2D.OPEN);
+            Arc2D arc = new Arc2D.Double(radialX - halfR - Options.canv_ArcPadding / 2,
+                radialY - halfR - Options.canv_ArcPadding / 2,
+                2 * halfR + Options.canv_ArcPadding, 2 * halfR + Options.canv_ArcPadding,
+                Math.toDegrees(firstAngle),
+                Math.toDegrees((lastAngle - firstAngle + 2 * Math.PI) % (2 * Math.PI)),
+                Arc2D.OPEN);
 
             g2.draw(arc);
           }
-          //draw arc for countered child
+          // draw arc for countered child
           if (noChildren < children.size() && noChildren > 0) {
             g2.setStroke(counterStroke);
             Arc2D arc = new Arc2D.Double(radialX - halfR,
-                                       radialY - halfR,
-                                       2*halfR, 2*halfR,
-                                       Math.toDegrees(lastAngle),
-                                       Math.toDegrees((counterAngle - lastAngle + 2*Math.PI)%(2*Math.PI)),
-                                       Arc2D.OPEN);
+                radialY - halfR,
+                2 * halfR, 2 * halfR,
+                Math.toDegrees(lastAngle),
+                Math.toDegrees((counterAngle - lastAngle + 2 * Math.PI) % (2 * Math.PI)),
+                Arc2D.OPEN);
             g2.draw(arc);
           }
-//           Debug.log("firstAngle="+Double.toString(Math.toDegrees(firstAngle)) +  "lastAngle="+Double.toString(Math.toDegrees(lastAngle)));
-//           Debug.log("counterAngle="+Double.toString(Math.toDegrees(counterAngle)) +  "midAngle="+Double.toString(Math.toDegrees(midAngle))+ " noChildren:"+ Integer.toString(noChildren));
+          // Debug.log("firstAngle="+Double.toString(Math.toDegrees(firstAngle)) +
+          // "lastAngle="+Double.toString(Math.toDegrees(lastAngle)));
+          // Debug.log("counterAngle="+Double.toString(Math.toDegrees(counterAngle)) +
+          // "midAngle="+Double.toString(Math.toDegrees(midAngle))+ " noChildren:"+
+          // Integer.toString(noChildren));
 
         }
       }
@@ -1420,25 +1410,24 @@ public abstract class AbstractTreeCanvas extends JPanel
     // ATTACKER type
     Options.ShapeType shape = Options.canv_ShapeAtt;
     if (node instanceof ADTNode) {
-      ADTNode.Role defender =
-          tree.getLayout().getSwitchRole() ? ADTNode.Role.PROPONENT : ADTNode.Role.OPPONENT;
+      ADTNode.Role defender = tree.getLayout().getSwitchRole() ? ADTNode.Role.PROPONENT : ADTNode.Role.OPPONENT;
       if (((ADTNode) node).getRole() == defender) {
         shape = Options.canv_ShapeDef;
       }
     }
     switch (shape) {
-    case RECTANGLE:
-      g2.drawRect(x, y, (int) box.width + focusPad - 1, (int) box.height + focusPad - 1);
-      break;
-    case OVAL:
-      g2.drawOval(x, y, (int) box.width + focusPad - 1, (int) box.height + focusPad - 1);
-      break;
-    // case ROUNDRECT:
-    // default:
-    // g2.drawRoundRect(x, y, (int) box.width + focusPad - 1, (int) box.height +
-    // focusPad - 1,
-    // Options.canv_ArcSize + 1, Options.canv_ArcSize + 1);
-    // break;
+      case RECTANGLE:
+        g2.drawRect(x, y, (int) box.width + focusPad - 1, (int) box.height + focusPad - 1);
+        break;
+      case OVAL:
+        g2.drawOval(x, y, (int) box.width + focusPad - 1, (int) box.height + focusPad - 1);
+        break;
+      // case ROUNDRECT:
+      // default:
+      // g2.drawRoundRect(x, y, (int) box.width + focusPad - 1, (int) box.height +
+      // focusPad - 1,
+      // Options.canv_ArcSize + 1, Options.canv_ArcSize + 1);
+      // break;
     }
   }
 
@@ -1447,8 +1436,7 @@ public abstract class AbstractTreeCanvas extends JPanel
    *
    */
   protected void updateSize() {
-    Point2D.Double point =
-        new Point2D.Double(this.sizeX + this.borderPad / 2, this.sizeY + this.borderPad / 2);
+    Point2D.Double point = new Point2D.Double(this.sizeX + this.borderPad / 2, this.sizeY + this.borderPad / 2);
     this.viewTransform.transform(point, point);
     int x = 0;
     int y = 0;
@@ -1471,11 +1459,11 @@ public abstract class AbstractTreeCanvas extends JPanel
    * Calculates optimal number of rows and columns - used for printing.
    *
    * @param pageHeight
-   *          height of the page.
+   *                   height of the page.
    * @param pageWidth
-   *          width of the page.
+   *                   width of the page.
    * @param noPages
-   *          maximum number of pages.
+   *                   maximum number of pages.
    * @return
    */
   private Point getColsRows(double pageHeight, double pageWidth, int noPages) {
@@ -1489,8 +1477,7 @@ public abstract class AbstractTreeCanvas extends JPanel
           cols--;
           return new Point((int) cols, (int) rows);
         }
-      }
-      else {
+      } else {
         rows++;
         if (cols * rows > noPages) {
           rows--;
@@ -1500,92 +1487,94 @@ public abstract class AbstractTreeCanvas extends JPanel
     }
   }
 
-  protected NodeTree                      tree;
+  protected NodeTree tree;
   /**
    * Size of canvas
    */
-  protected double                        sizeX            = 0;
+  protected double sizeX = 0;
   /**
    * Size of canvas after transformation
    */
-  protected double                        sizeY            = 0;
+  protected double sizeY = 0;
   /**
    * If true then we do not synchronize our size with other canvases.
    */
-  protected boolean                       localExtentProvider;
+  protected boolean localExtentProvider;
 
   /**
    * A page format used for printing.
    */
-  protected PageFormat                    pageFormat;
-  protected PrintRequestAttributeSet      printAttr;
+  protected PageFormat pageFormat;
+  protected PrintRequestAttributeSet printAttr;
   /**
    * Holds a size of the viewPort
    */
-  protected Dimension                     viewPortSize;
+  protected Dimension viewPortSize;
   /**
    * A map between nodes and its positions. Used to buffer the result of Walkers
    * algorithm.
    */
   protected Map<Node, Rectangle2D.Double> bufferedLayout;
-  protected DefaultConfiguration<Node>    configuration;
-  protected GuiNode                       focused;
+  protected DefaultConfiguration<Node> configuration;
+  protected GuiNode focused;
   /**
    * If focused is null, this holds the value of last focused node - never null.
    */
-  protected GuiNode                       lastFocused;
+  protected GuiNode lastFocused;
   /**
    * Transformation doing scaling and moving.
    */
-  protected AffineTransform               viewTransform    = new AffineTransform();
+  protected AffineTransform viewTransform = new AffineTransform();
 
   /**
    * A scale factor for drawing.
    */
-  protected double                        scale            = 1;
-  protected final int                     borderPad        = 20;
+  protected double scale = 1;
+  protected final int borderPad = 20;
   /**
    * How much we move the canvas horizontally.
    */
-  protected double                        moveX            = 0;
+  protected double moveX = 0;
   /**
    * How much we move the canvas vertically.
    */
-  protected double                        moveY            = 0;
+  protected double moveY = 0;
   /**
    * How much a focus circle is padded.
    */
-  protected final int                     focusPad         = 10;
+  protected final int focusPad = 10;
   /**
    * JScrollPane that handles canvas scrolling.
    */
-  protected JScrollPane                   scrollPane;
+  protected JScrollPane scrollPane;
   /**
    * Parameters for the Walkers algorithm.
    */
-  protected final BasicStroke             selectionStroke  =
-      new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {6, 10}, 0);
-  protected final BasicStroke             basicStroke      =
-      new BasicStroke(Options.canv_LineWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
-  private final BasicStroke               counterStroke    = new BasicStroke(Options.canv_LineWidth,
-      BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] {0, 6}, 0);
-  protected MainController                controller;
-  protected History                       history;
+  protected final BasicStroke selectionStroke = new BasicStroke(1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0,
+      new float[] { 6, 10 }, 0);
+  protected final BasicStroke basicStroke = new BasicStroke(Options.canv_LineWidth, BasicStroke.CAP_ROUND,
+      BasicStroke.JOIN_ROUND);
+  private final BasicStroke counterStroke = new BasicStroke(Options.canv_LineWidth,
+      BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 0, new float[] { 0, 6 }, 0);
+  protected MainController controller;
+  protected History history;
 
-  static final long                       serialVersionUID = 158222312311522883L;
-  protected int                           labelCounter;
+  static final long serialVersionUID = 158222312311522883L;
+  protected int labelCounter;
 
-  protected static final String           LABEL_PREFIX     = "N_";
-  public static enum NodeLayout{
+  protected static final String LABEL_PREFIX = "N_";
+
+  public static enum NodeLayout {
     NORMAL, RADIAL
   }
-  protected NodeLayout                    nodeLayout = Options.canv_defaultLayout;
+
+  protected NodeLayout nodeLayout = Options.canv_defaultLayout;
   /**
    * Center of root node when using RADIAL display layout - x component
    */
-  protected double                        radialX = 0;
+  protected double radialX = 0;
   /**
    * Center of root node when using RADIAL display layout - y component
    */
-  protected double                        radialY = 0;
+  protected double radialY = 0;
 }

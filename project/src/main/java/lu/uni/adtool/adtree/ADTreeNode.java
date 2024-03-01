@@ -22,28 +22,31 @@ package lu.uni.adtool.adtree;
 
 import java.io.Serializable;
 
+import lu.uni.adtool.tree.ADTNode;
+
 /**
- * Represents a node in the Atack Defense Tree. Used to import old adtfiles only.
+ * Represents a node in the Atack Defense Tree. Used to import old adtfiles
+ * only.
  *
  * @author Piotr Kordy
  */
 public class ADTreeNode implements Serializable {
-  static final long         serialVersionUID = 19696324774341496L;
-  private static int        idCounter        = 1;
-  private boolean           folded;
-  private boolean           aboveFolded;
+  static final long serialVersionUID = 19696324774341496L;
+  private static int idCounter = 1;
+  private boolean folded;
+  private boolean aboveFolded;
   /**
    * The type of the node.
    */
-  private Type              type;
-  private RefinementType    refinementType;
-  private boolean           countered;
-  private int               id;
-  private int               level;
+  private Type type;
+  private RefinementType refinementType;
+  private boolean countered;
+  private int id;
+  private int level;
   /**
    * Label of the node.
    */
-  private String            label;
+  private String label;
 
   /**
    * Identifies the type of node.
@@ -97,8 +100,7 @@ public class ADTreeNode implements Serializable {
 
     if (label != null) {
       setLabel(label);
-    }
-    else {
+    } else {
       setLabel("");
     }
     level = 0;
@@ -124,8 +126,7 @@ public class ADTreeNode implements Serializable {
   public boolean equals(ADTreeNode node) {
     if (node != null) {
       return id == node.getId();
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -134,7 +135,7 @@ public class ADTreeNode implements Serializable {
    * Sets the label for this instance.
    *
    * @param label
-   *          The label.
+   *              The label.
    */
   public void setLabel(String label) {
     this.label = label.trim().replaceAll("(?m)^ +| +$|^[ \t]*\r?\n|( )+", "$1");
@@ -144,7 +145,7 @@ public class ADTreeNode implements Serializable {
    * Sets the refinementType for this instance.
    *
    * @param refinementType
-   *          The refinementType.
+   *                       The refinementType.
    */
   public void setRefinementType(RefinementType refinementType) {
     this.refinementType = refinementType;
@@ -163,7 +164,7 @@ public class ADTreeNode implements Serializable {
    * Sets whether or not this instance is folded.
    *
    * @param folded
-   *          The folded.
+   *               The folded.
    */
   public void setFolded(boolean folded) {
     this.folded = folded;
@@ -182,7 +183,7 @@ public class ADTreeNode implements Serializable {
    * Sets whether or not this instance is aboveFolded.
    *
    * @param aboveFolded
-   *          The aboveFolded.
+   *                    The aboveFolded.
    */
   public void setAboveFolded(boolean aboveFolded) {
     this.aboveFolded = aboveFolded;
@@ -203,8 +204,7 @@ public class ADTreeNode implements Serializable {
   public void changeOp() {
     if (getRefinmentType() == RefinementType.DISJUNCTIVE) {
       setRefinementType(RefinementType.CONJUNCTIVE);
-    }
-    else {
+    } else {
       setRefinementType(RefinementType.DISJUNCTIVE);
     }
   }
@@ -215,8 +215,7 @@ public class ADTreeNode implements Serializable {
   public void changeType() {
     if (getType() == Type.OPPONENT) {
       setType(Type.PROPONENT);
-    }
-    else {
+    } else {
       setType(Type.OPPONENT);
     }
   }
@@ -225,7 +224,7 @@ public class ADTreeNode implements Serializable {
    * Sets the type for this instance.
    *
    * @param type
-   *          The type.
+   *             The type.
    */
   public void setType(Type type) {
     this.type = type;
@@ -240,7 +239,6 @@ public class ADTreeNode implements Serializable {
     return this.refinementType;
   }
 
-
   /**
    * Determines if this instance is countered.
    *
@@ -254,7 +252,7 @@ public class ADTreeNode implements Serializable {
    * Sets whether or not this instance is countered.
    *
    * @param countered
-   *          The countered.
+   *                  The countered.
    */
   public void setCountered(boolean countered) {
     this.countered = countered;
@@ -273,7 +271,7 @@ public class ADTreeNode implements Serializable {
    * Sets the level for this instance.
    *
    * @param level
-   *          The level.
+   *              The level.
    */
   public void setLevel(int level) {
     this.level = level;

@@ -48,7 +48,7 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
    * Constructs a new instance.
    *
    * @param canvas
-   *          parent canvas
+   *               parent canvas
    */
   public ADTCanvasHandler(final ADTreeCanvas<?> canvas) {
     super(canvas);
@@ -66,80 +66,85 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
     if (e.isControlDown()) {
       if (node != null) {
         switch (e.getKeyCode()) {
-        case KeyEvent.VK_LEFT:
-          ((ADTreeCanvas<?>) this.canvas).switchSibling(node, true);
-          break;
-        case KeyEvent.VK_RIGHT:
-          ((ADTreeCanvas<?>) this.canvas).switchSibling(node, false);
-          break;
-        case KeyEvent.VK_J:
-          ((ADTreeCanvas<?>) canvas).toggleOp(node);
-          break;
-        case KeyEvent.VK_I:
-          ((ADTreeCanvas<?>) canvas).addCounter(node);
-          break;
-        case KeyEvent.VK_A:
-          ((ADTreeCanvas<?>) canvas).addChild(node);
-          break;
-        case KeyEvent.VK_L:
-          menuNode = node;
-          changeLabelActionPerformed();
-          break;
-        case KeyEvent.VK_R:
-          ((ADTreeCanvas<?>) canvas).removeTree(node);
-          break;
-        case KeyEvent.VK_S:
-          ((ADTreeCanvas<?>) canvas).addSibling(node, !e.isShiftDown());
-          break;
-        default:
-          consume = false;
+          case KeyEvent.VK_LEFT:
+            ((ADTreeCanvas<?>) this.canvas).switchSibling(node, true);
+            break;
+          case KeyEvent.VK_RIGHT:
+            ((ADTreeCanvas<?>) this.canvas).switchSibling(node, false);
+            break;
+          case KeyEvent.VK_J:
+            ((ADTreeCanvas<?>) canvas).toggleOp(node);
+            break;
+          case KeyEvent.VK_I:
+            ((ADTreeCanvas<?>) canvas).addCounter(node);
+            break;
+          case KeyEvent.VK_A:
+            ((ADTreeCanvas<?>) canvas).addChild(node);
+            break;
+          case KeyEvent.VK_L:
+            menuNode = node;
+            changeLabelActionPerformed();
+            break;
+          case KeyEvent.VK_R:
+            ((ADTreeCanvas<?>) canvas).removeTree(node);
+            break;
+          case KeyEvent.VK_S:
+            ((ADTreeCanvas<?>) canvas).addSibling(node, !e.isShiftDown());
+            break;
+          case KeyEvent.VK_B: // Assuming 'B' is the key for branch selection
+            // print line ctrl b has been pressed
+            System.out.println("ctrl b pressed");
+            if (node != null) {
+              // Call the method responsible for branch selection
+              ((ADTreeCanvas<?>) canvas).selectBranch(node);
+            }
+            break;
+
+          default:
+            consume = false;
         }
-      }
-      else {
+      } else {
         consume = false;
       }
-    }
-    else if (e.isShiftDown()) {
+    } else if (e.isShiftDown()) {
       if (node != null) {
         switch (e.getKeyCode()) {
+          case KeyEvent.VK_SPACE:
+            if (node != null) {
+              menuNode = node;
+              canvas.toggleAboveFold(menuNode);
+            }
+            break;
+          case KeyEvent.VK_R:
+            if (node != null) {
+              menuNode = node;
+              ((ADTreeCanvas<?>) canvas).removeChildren(node);
+            }
+            break;
+          default:
+            consume = false;
+            break;
+        }
+      } else {
+        consume = false;
+      }
+    } else {
+      switch (e.getKeyCode()) {
+        case KeyEvent.VK_ENTER:
+          if (node != null) {
+            menuNode = node;
+            changeLabelActionPerformed();
+            canvas.setFocus(menuNode);
+          }
+          break;
         case KeyEvent.VK_SPACE:
           if (node != null) {
             menuNode = node;
-            canvas.toggleAboveFold(menuNode);
-          }
-          break;
-        case KeyEvent.VK_R:
-          if (node != null) {
-            menuNode = node;
-            ((ADTreeCanvas<?>) canvas).removeChildren(node);
+            canvas.toggleFold(menuNode);
           }
           break;
         default:
           consume = false;
-          break;
-        }
-      }
-      else {
-        consume = false;
-      }
-    }
-    else {
-      switch (e.getKeyCode()) {
-      case KeyEvent.VK_ENTER:
-        if (node != null) {
-          menuNode = node;
-          changeLabelActionPerformed();
-          canvas.setFocus(menuNode);
-        }
-        break;
-      case KeyEvent.VK_SPACE:
-        if (node != null) {
-          menuNode = node;
-          canvas.toggleFold(menuNode);
-        }
-        break;
-      default:
-        consume = false;
       }
     }
     if (!consume) {
@@ -160,15 +165,13 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
         menuNode = node;
         this.pmenu.show(e.getComponent(), e.getX(), e.getY());
         setFocus(node);
-      }
-      else {
+      } else {
         if (node.equals(canvas.getFocused())) {
           menuNode = node;
           changeLabelActionPerformed();
           // canvas.toggleExpandNode(node);
           // this.canvas.repaint();
-        }
-        else {
+        } else {
           setFocus(node);
         }
       }
@@ -179,16 +182,15 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
    * Set new focus and update context menu visibility.
    *
    * @param node
-   *          node to which we set focus.
+   *             node to which we set focus.
    */
   public void setFocus(final Node node) {
     if (node != null) {
       final Node parent = canvas.getParentNode(node);
       boolean canAddSibling;
-      if (parent == null || ((ADTNode)parent).getType() != ((ADTNode) node).getType()) {
+      if (parent == null || ((ADTNode) parent).getType() != ((ADTNode) node).getType()) {
         canAddSibling = false;
-      }
-      else {
+      } else {
         canAddSibling = true;
       }
       boolean canFold;
@@ -196,16 +198,14 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
       if (((GuiNode) node).isFolded()) {
         toggleFold.setText(Options.getMsg("handler.expandbelow.txt"));
         canFold = true;
-      }
-      else {
+      } else {
         toggleFold.setText(Options.getMsg("handler.foldbelow.txt"));
         canFold = (node.getChildren().size() > 0);
       }
       if (((GuiNode) node).isAboveFolded()) {
         toggleAboveFold.setText(Options.getMsg("handler.expandabove.txt"));
         canFoldAbove = true;
-      }
-      else {
+      } else {
         toggleAboveFold.setText(Options.getMsg("handler.foldabove.txt"));
         canFoldAbove = (node.getParent() != null);
       }
@@ -416,10 +416,9 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
    */
   private void changeLabelActionPerformed() {
     if (menuNode != null) {
-      String s =
-          (String) MultiLineInput.showInputDialog(Options.getMsg("handler.dialog.newlabel.txt"),
-              Options.getMsg("handler.dialog.newlabel.title"), menuNode.getName(),
-              menuNode.getComment());
+      String s = (String) MultiLineInput.showInputDialog(Options.getMsg("handler.dialog.newlabel.txt"),
+          Options.getMsg("handler.dialog.newlabel.title"), menuNode.getName(),
+          menuNode.getComment());
       if (s == null) {
         return;
       }

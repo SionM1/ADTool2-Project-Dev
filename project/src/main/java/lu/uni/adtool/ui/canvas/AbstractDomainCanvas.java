@@ -142,8 +142,7 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
       SandNode node = (SandNode) n;
       editable = node.isEditable();
       value = (Ring) this.values.getValue(node);
-    }
-    else {
+    } else {
       ADTNode node = (ADTNode) n;
       editable = node.isEditable((AdtDomain<Ring>) values.getDomain());
       proponent = node.getRole() == ADTNode.Role.PROPONENT;
@@ -155,36 +154,28 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
       InputDialog dialog;
       if (value instanceof Bool) {
         value = (Ring) Bool.not((Bool) value);
-      }
-      else if (value instanceof RealG0) {
+      } else if (value instanceof RealG0) {
         dialog = new RealG0Dialog(controller.getFrame());
         value = (Ring) (dialog.showInputDialog(value));
-      }
-      else if (value instanceof RealZeroOne) {
+      } else if (value instanceof RealZeroOne) {
         dialog = new RealZeroOneDialog(controller.getFrame());
         value = (Ring) (dialog.showInputDialog(value));
-      }
-      else if (value instanceof Real) {
+      } else if (value instanceof Real) {
         dialog = new RealDialog(controller.getFrame());
         value = (Ring) (dialog.showInputDialog(value));
-      }
-      else if (value instanceof LMHValue) {
+      } else if (value instanceof LMHValue) {
         dialog = new LMHDialog(controller.getFrame());
-          value = (Ring) (dialog.showInputDialog(value));
-      }
-      else if (value instanceof LMHEValue) {
+        value = (Ring) (dialog.showInputDialog(value));
+      } else if (value instanceof LMHEValue) {
         dialog = new LMHEDialog(controller.getFrame());
         value = (Ring) (dialog.showInputDialog(value));
-      }
-      else if (value instanceof BoundedInteger) {
+      } else if (value instanceof BoundedInteger) {
         dialog = new BoundedIntegerDialog(controller.getFrame());
         value = (Ring) (dialog.showInputDialog(value));
-      }
-      else if (value instanceof Int) {
+      } else if (value instanceof Int) {
         dialog = new IntDialog(controller.getFrame());
         value = (Ring) (dialog.showInputDialog(value));
-      }
-      else {
+      } else {
         Debug.log("Unknown value type " + value);
       }
       if (value != null) {
@@ -232,7 +223,7 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
    * Sets whether or not this instance is markEditable.
    *
    * @param markEditable
-   *          The markEditable.
+   *                     The markEditable.
    */
   public void setMarkEditable(boolean markEditable) {
     this.markEditable = markEditable;
@@ -302,15 +293,13 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
     if (this.isSand()) {
       if (removeOld) {
         this.values.treeChanged((SandNode) tree.getRoot(true));
-      }
-      else {
+      } else {
         this.values.valuesUpdated((SandNode) tree.getRoot(true));
       }
     } else {
       if (removeOld) {
         this.values.treeChanged((ADTNode) tree.getRoot(true));
-      }
-      else {
+      } else {
         this.values.valuesUpdated((ADTNode) tree.getRoot(true));
       }
     }
@@ -361,7 +350,8 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
   public void repaintAll() {
     DomainFactory factory = getController().getFrame().getDomainFactory();
     factory.repaintAllDomains(new Integer(getTreeId()));
-    TreeDockable d = (TreeDockable) getController().getControl().getMultipleDockable(TreeDockable.TREE_ID + getTreeId());
+    TreeDockable d = (TreeDockable) getController().getControl()
+        .getMultipleDockable(TreeDockable.TREE_ID + getTreeId());
     d.getCanvas().repaint();
   }
 
@@ -369,7 +359,7 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
    * Sets whether or not this instance has a local Extent Provider.
    *
    * @param localExtentProvider
-   *          The localExtentProvider.
+   *                            The localExtentProvider.
    */
   public void setLocalExtentProvider(boolean localExtentProvider) {
     this.localExtentProvider = localExtentProvider;
@@ -413,8 +403,7 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
       if (node.getName().equals(label) && ((SandNode) node).isLeaf()) {
         doMark = true;
       }
-    }
-    else {
+    } else {
       if (node.getName().equals(label) && ((ADTNode) node).hasDefault()) {
         doMark = true;
       }
@@ -446,39 +435,34 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
   }
 
   public void updateTerms() {
-    throw new ClassCastException ("Wrong class used");
+    throw new ClassCastException("Wrong class used");
   }
 
   private String valueToStr(Ring value) {
-    if ((value instanceof Real) && ((Object)this.values.getDomain() instanceof AdtRealDomain)) {
+    if ((value instanceof Real) && ((Object) this.values.getDomain() instanceof AdtRealDomain)) {
       try {
-        return ((AdtRealDomain)(Object) this.values.getDomain()).format((Real)value);
-      }
-      catch (NumberFormatException e) {
-      }
-      catch (NullPointerException e) {
+        return ((AdtRealDomain) (Object) this.values.getDomain()).format((Real) value);
+      } catch (NumberFormatException e) {
+      } catch (NullPointerException e) {
       }
     }
     if (value instanceof RealG0 || value instanceof RealZeroOne || value instanceof Real) {
       try {
         return Options.canv_precision.format(Double.parseDouble(value.toUnicode()));
-      }
-      catch (NumberFormatException e) {
+      } catch (NumberFormatException e) {
         return value.toUnicode();
       }
-    }
-    else if (value != null) {
+    } else if (value != null) {
       return value.toUnicode();
-    }
-    else {
+    } else {
       return "null";
     }
   }
 
   protected AbstractCanvasHandler listener;
-  protected ValuationDomain       values;
-  private HashMap<Node, Color>    marked;
-  private boolean                 markEditable;
-  private boolean                 showLabels;
-  private static final long       serialVersionUID = -2360795431357785877L;
+  protected ValuationDomain values;
+  private HashMap<Node, Color> marked;
+  private boolean markEditable;
+  private boolean showLabels;
+  private static final long serialVersionUID = -2360795431357785877L;
 }

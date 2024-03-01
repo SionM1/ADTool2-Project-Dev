@@ -23,7 +23,7 @@ package lu.uni.adtool.tree;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Node implements Serializable{
+public abstract class Node implements Serializable {
 
   public Node() {
     this.name = "root";
@@ -60,8 +60,10 @@ public abstract class Node implements Serializable{
   }
 
   public final boolean isLeaf() {
-    if (children == null) return true;
-    if (children.size() == 0) return true;
+    if (children == null)
+      return true;
+    if (children.size() == 0)
+      return true;
     return false;
   }
 
@@ -83,10 +85,9 @@ public abstract class Node implements Serializable{
   }
 
   public ArrayList<Integer> toPath() {
-    if (parent == null ) {
+    if (parent == null) {
       return new ArrayList<Integer>();
-    }
-    else {
+    } else {
       ArrayList<Integer> result = parent.toPath();
       final int index = parent.getChildren().indexOf(this);
       result.add(new Integer(index));
@@ -100,8 +101,7 @@ public abstract class Node implements Serializable{
     }
     if (path.size() == index + 1) {
       return children.get(path.get(index));
-    }
-    else {
+    } else {
       Node child = children.get(path.get(index));
       return child.fromPath(path, index + 1);
     }
@@ -122,7 +122,7 @@ public abstract class Node implements Serializable{
    * Removes all children of a node.
    *
    * @param node
-   *          node of which children should be removed.
+   *             node of which children should be removed.
    */
   public final void removeAllChildren(final Node node) {
     for (Node n : children) {
@@ -135,7 +135,7 @@ public abstract class Node implements Serializable{
    * Removes a node and moves children to the current node.
    *
    * @param child
-   *          node to be removed from the list of children.
+   *              node to be removed from the list of children.
    */
   public final void removeChild(final Node child) {
     if (children == null) {
@@ -159,12 +159,13 @@ public abstract class Node implements Serializable{
    * Adds a child at a specified index and assigns to it number of children.
    *
    * @param child
-   *          child to be added
+   *                   child to be added
    * @param indexAt
-   *          index at which we add child (from 0 to number of children parent
-   *          has)
+   *                   index at which we add child (from 0 to number of children
+   *                   parent
+   *                   has)
    * @param noChildren
-   *          number of children to be transfered.
+   *                   number of children to be transfered.
    */
 
   public final void addChildAt(Node child, final int indexAt) {
@@ -173,12 +174,54 @@ public abstract class Node implements Serializable{
     // child.setName(name);
     this.children.add(indexAt, child);
     child.setParent(this);
-//     child.setChildren(newChildren);
+    // child.setChildren(newChildren);
+  }
+
+  // New attribute to indicate if the node is part of the selected path
+  private boolean isSelected = false; // Added isSelected flag
+
+  // Method to select the path
+  public void selectPath() {
+    this.isSelected = true;
+    if (this.parent != null) {
+      this.parent.selectPath(); // Recursively select path upwards
+    }
+  }
+
+  // Method to clear the selection flag for this node and all its descendants
+  public void clearSelection() {
+    this.isSelected = false;
+    if (this.children != null) {
+      for (Node child : this.children) {
+        child.clearSelection();
+      }
+    }
+  }
+
+  // Getter for isSelected
+  public boolean isSelected() {
+    return isSelected; // Return selection status
+  }
+
+  // Setter for isSelected
+  public void setSelected(boolean selected) {
+    this.isSelected = selected; // Set the selection status
+    // If you need to perform additional actions when the selection state changes,
+    // such as updating the UI or notifying listeners, you can add that logic here.
+  }
+
+  public void selectNodeAndDescendants(boolean selected) {
+    this.setSelected(selected);
+    if (this.children != null) {
+      for (Node child : this.children) {
+        child.selectNodeAndDescendants(selected);
+      }
+    }
   }
 
   protected ArrayList<Node> children;
-  private String            name;
-  private String            comment;
-  private Node              parent;
+  private String name;
+  private String comment;
+  private Node parent;
   private static final long serialVersionUID = -983678473499189388L;
 }
