@@ -91,15 +91,6 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
           case KeyEvent.VK_S:
             ((ADTreeCanvas<?>) canvas).addSibling(node, !e.isShiftDown());
             break;
-          case KeyEvent.VK_B: // key for branch selection
-            // print line ctrl b has been pressed
-            System.out.println("ctrl b pressed");
-            if (node != null) {
-              // Method responsible for branch selection
-              ((ADTreeCanvas<?>) canvas).selectBranch(node);
-            }
-            break;
-
           default:
             consume = false;
         }
@@ -170,7 +161,7 @@ public class ADTCanvasHandler extends AbstractCanvasHandler {
           menuNode = node;
           changeLabelActionPerformed();
           // canvas.toggleExpandNode(node);
-          // this.canvas.repaint();
+          this.canvas.repaint();
         } else {
           setFocus(node);
         }

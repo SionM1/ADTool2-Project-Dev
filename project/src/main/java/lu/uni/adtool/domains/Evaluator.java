@@ -25,6 +25,8 @@ import lu.uni.adtool.tree.ADTNode;
 import lu.uni.adtool.tree.Node;
 import lu.uni.adtool.tree.SandNode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
 
 /**
@@ -38,8 +40,9 @@ public class Evaluator<Type extends Ring> {
    * Constructs a new instance.
    *
    */
+
   public Evaluator(AdtDomain<Type> domain) {
-    resultMap = null;
+    this.resultMap = new HashMap<>();
     this.atdDomain = domain;
     this.sandDomain = null;
   }
@@ -54,14 +57,13 @@ public class Evaluator<Type extends Ring> {
    * Returns previously calculated value for a given node.
    *
    * @param node
-   *          a node
+   *             a node
    * @return value at a node
    */
   public final Type getValue(final Node node) {
     if (resultMap == null || node == null) {
       return null;
-    }
-    else {
+    } else {
       return resultMap.get(node);
     }
   }
@@ -70,17 +72,19 @@ public class Evaluator<Type extends Ring> {
    * Do bottom up evaluation.
    *
    * @param root
-   *          node from which we do evaluation
+   *               node from which we do evaluation
    * @param newmap
-   *          mapping between node names and values.
+   *               mapping between node names and values.
    * @return true if evaluation was successful.
    */
   public final Type reevaluate(final ADTNode root, final ValueAssignement<Type> valuesMap) {
+    // Use collectSelectedNodes to get only selected nodes
+
     if (valuesMap == null) {
       System.err.println("NULL result");
       return null;
     }
-    resultMap = new HashMap<Node, Type>();
+    resultMap.clear();
     return this.evaluate(root, valuesMap);
   }
 
@@ -100,39 +104,82 @@ public class Evaluator<Type extends Ring> {
    * @return
    */
   private Type evaluate(final ADTNode root, ValueAssignement<Type> valuesMap) {
+    if (!anyHighlightedLeafExists(root)) {
+      System.out.println("No highlighted nodes found. Performing standard evaluation.");
+      return evaluateNode(root, valuesMap);
+    } else {
+      System.out.println("Highlighted nodes found. Evaluating only highlighted nodes.");
+      return evaluateHighlightedNodes(root, valuesMap);
+    }
+  }
+
+  private Type evaluateNode(final ADTNode node, ValueAssignement<Type> valuesMap) {
     Type result = null;
-    int c = 0;
-    // if last element is counter - skip it
-    if (root.isCountered()) {
-      c = 1;
-    }
-    if (root.hasDefault()) {
-      result = valuesMap.get(root.getRole() == ADTNode.Role.PROPONENT, root.getName());
+    if (node.hasDefault()) {
+      result = valuesMap.get(node.getRole() == ADTNode.Role.PROPONENT, node.getName());
       if (result == null) {
-        result = atdDomain.getDefaultValue(root);
+        result = atdDomain.getDefaultValue(node);
+      }
+    } else {
+      for (Node child : node.getChildren()) {
+        Type childResult = evaluateNode((ADTNode) child, valuesMap);
+        result = result == null ? childResult : atdDomain.calc(result, childResult, node.getType());
       }
     }
-    else {
-      for (int i = 0; i < (root.getChildren().size() - c); i++) {
-        if (result == null) {
-          result = evaluate((ADTNode) root.getChildren().get(i), valuesMap);
+    if (node.isCountered()) {
+      Type counterResult = evaluateNode((ADTNode) node.getChildren().get(node.getChildren().size() - 1), valuesMap);
+      result = node.getRole() == ADTNode.Role.OPPONENT ? atdDomain.co(result, counterResult)
+          : atdDomain.cp(result, counterResult);
+    }
+    resultMap.put(node, result);
+    return result;
+  }
+
+  private boolean anyHighlightedLeafExists(final ADTNode node) {
+    if (node.isLeaf() && node.isSelected())
+      return true;
+    for (Node child : node.getChildren()) {
+      if (child instanceof ADTNode && anyHighlightedLeafExists((ADTNode) child)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private Type evaluateHighlightedNodes(final ADTNode node, ValueAssignement<Type> valuesMap) {
+    if (!node.isSelected() && !node.isLeaf())
+      return null; // Skip non-highlighted non-leaf nodes
+
+    Type result = null;
+    if (node.hasDefault() && node.isSelected()) {
+      result = valuesMap.get(node.getRole() == ADTNode.Role.PROPONENT, node.getName());
+      if (result == null) {
+        result = atdDomain.getDefaultValue(node);
+      }
+    } else {
+      for (Node child : node.getChildren()) {
+        if (child instanceof ADTNode && child.isSelected()) {
+          ADTNode adtChild = (ADTNode) child;
+          Type childResult = evaluateHighlightedNodes(adtChild, valuesMap);
+          if (childResult != null) {
+            result = result == null ? childResult : atdDomain.calc(result, childResult, node.getType());
+          }
         }
-        else {
-          result = atdDomain.calc(result, evaluate((ADTNode) root.getChildren().get(i), valuesMap), root.getType());
-        }
       }
     }
-    if (root.isCountered()) {
-      if (root.getRole() == ADTNode.Role.OPPONENT) {
-        result = atdDomain.co(result, evaluate(
-            (ADTNode) root.getChildren().get(root.getChildren().size() - 1), valuesMap));
-      }
-      else {
-        result = atdDomain.cp(result, evaluate(
-            (ADTNode) root.getChildren().get(root.getChildren().size() - 1), valuesMap));
+
+    if (node.isCountered() && node.isSelected()) {
+      ADTNode counterChild = (ADTNode) node.getChildren().get(node.getChildren().size() - 1);
+      if (counterChild.isSelected()) {
+        Type counterResult = evaluateHighlightedNodes(counterChild, valuesMap);
+        result = node.getRole() == ADTNode.Role.OPPONENT ? atdDomain.co(result, counterResult)
+            : atdDomain.cp(result, counterResult);
       }
     }
-    resultMap.put(root, result);
+
+    if (node.isSelected()) {
+      resultMap.put(node, result); // Store results for highlighted nodes
+    }
     return result;
   }
 
@@ -143,14 +190,12 @@ public class Evaluator<Type extends Ring> {
       if (result == null) {
         result = sandDomain.getDefaultValue(root);
       }
-    }
-    else {
+    } else {
       for (Node child : root.getChildren()) {
         if (result == null) {
           result = evaluate((SandNode) child, map);
-        }
-        else {
-          result = sandDomain.calc(result,  evaluate((SandNode) child, map), root.getType());
+        } else {
+          result = sandDomain.calc(result, evaluate((SandNode) child, map), root.getType());
         }
       }
     }
@@ -159,6 +204,6 @@ public class Evaluator<Type extends Ring> {
   }
 
   private HashMap<Node, Type> resultMap;
-  private AdtDomain<Type>     atdDomain;
-  private SandDomain<Type>    sandDomain;
+  private AdtDomain<Type> atdDomain;
+  private SandDomain<Type> sandDomain;
 }

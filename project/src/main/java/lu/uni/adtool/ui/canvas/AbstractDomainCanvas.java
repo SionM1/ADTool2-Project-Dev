@@ -21,6 +21,7 @@
 package lu.uni.adtool.ui.canvas;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JScrollPane;
@@ -63,8 +64,27 @@ import lu.uni.adtool.ui.inputdialogs.LMHEDialog;
 import lu.uni.adtool.ui.inputdialogs.RealDialog;
 import lu.uni.adtool.ui.inputdialogs.RealG0Dialog;
 import lu.uni.adtool.ui.inputdialogs.RealZeroOneDialog;
+import java.util.List;
+import java.util.ArrayList;
 
 public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas implements NodeRanker {
+
+  public List<Node> collectSelectedNodes() {
+    List<Node> selectedNodes = new ArrayList<>();
+    collectSelectedNodesHelper(this.tree.getRoot(true), selectedNodes);
+    return selectedNodes;
+  }
+
+  private void collectSelectedNodesHelper(Node node, List<Node> selectedNodes) {
+    if (node == null)
+      return;
+    if (node.isSelected()) {
+      selectedNodes.add(node);
+    }
+    for (Node child : node.getChildren()) {
+      collectSelectedNodesHelper(child, selectedNodes);
+    }
+  }
 
   public AbstractDomainCanvas(MainController mc, ValuationDomain values) {
     super(null, mc);
@@ -289,6 +309,7 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
   /**
    * Function called whenever a new value is assigned to leaf node
    */
+
   public void valuesUpdated(boolean removeOld) {
     if (this.isSand()) {
       if (removeOld) {
@@ -303,6 +324,7 @@ public class AbstractDomainCanvas<Type extends Ring> extends AbstractTreeCanvas 
         this.values.valuesUpdated((ADTNode) tree.getRoot(true));
       }
     }
+
     if (controller != null) {
       ValuationsDockable valuationsDockable = (ValuationsDockable) controller.getControl()
           .getSingleDockable(ValuationsDockable.ID_VALUATIONVIEW);

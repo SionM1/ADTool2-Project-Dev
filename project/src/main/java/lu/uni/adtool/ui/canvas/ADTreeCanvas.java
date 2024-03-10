@@ -238,12 +238,15 @@ public class ADTreeCanvas<Type> extends AbstractTreeCanvas {
     repaint();
   }
 
-  // slect path is called when the user clicks on a leaf node
+  // sElect path is called when the user clicks on a leaf node
   private void selectPath(Node node) {
-    if (node.getParent() != null) {
-      selectPath(node.getParent());
+    if (node != null) {
+      node.setSelected(true);
+      System.out.println("Node selected: " + node.getName()); // This line will output each selected node's name
+      if (node.getParent() != null) {
+        selectPath(node.getParent());
+      }
     }
-    node.setSelected(true);
   }
 
   // deselect path is called when the user clicks on a leaf node again to deselect
@@ -251,36 +254,10 @@ public class ADTreeCanvas<Type> extends AbstractTreeCanvas {
   private void deselectPath(Node node) {
     if (node.getParent() != null) {
       deselectPath(node.getParent());
+      node.setSelected(false);
     }
     node.setSelected(false);
-  }
-
-  public void selectBranch(Node node) {
-    if (node == null) {
-      return; // Nothing to select if the node is null
-    }
-    // Perform the selection logic here
-    selectNodeAndDescendants(node);
-
-    // Redraw the tree to show the new selection state
-    repaint();
-  }
-
-  private void selectNodeAndDescendants(Node node) {
-    // Set the node as selected in your data model
-    node.setSelected(true);
-    // Highlight the node and its descendants
-    // Add your highlighting logic here
-    for (Node child : node.getChildren()) {
-      selectNodeAndDescendants(child);
-    }
-    // If the node has children, recursively select them as well
-    if (node instanceof ADTNode) {
-      ADTNode adtNode = (ADTNode) node;
-      for (Node child : adtNode.getChildren()) {
-        selectNodeAndDescendants(child);
-      }
-    }
+    System.out.println("Deselected node: " + node + " isSelected: " + node.isSelected());
   }
 
   public void toggleOp(Node node) {

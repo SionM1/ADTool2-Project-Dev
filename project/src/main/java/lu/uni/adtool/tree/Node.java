@@ -84,6 +84,44 @@ public abstract class Node implements Serializable {
     return this.children;
   }
 
+  public final void addChildAt(Node child, final int indexAt) {
+    // final Node child = new Node();
+    // child.setType(type);
+    // child.setName(name);
+    this.children.add(indexAt, child);
+    child.setParent(this);
+    // child.setChildren(newChildren);
+  }
+
+  // New attribute to indicate if the node is part of the selected path
+  public boolean isSelected = false; // Added isSelected flag
+
+  // Getter for isSelected
+  public boolean isSelected() {
+    return isSelected; // Return selection status
+  }
+
+  // Setter for isSelected
+  public void setSelected(boolean selected) {
+    this.isSelected = selected; // Set the selection status
+
+  }
+
+  // checks if there are any highlighted nodes in the tree
+  public boolean hasHighlightedNodes(Node node) {
+    // Debugging line
+    System.out.println("Node " + node.getName() + " is selected: " + node.isSelected());
+    if (node.isSelected()) {
+      return true;
+    }
+    for (Node child : node.getChildren()) {
+      if (hasHighlightedNodes(child)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public ArrayList<Integer> toPath() {
     if (parent == null) {
       return new ArrayList<Integer>();
@@ -167,57 +205,6 @@ public abstract class Node implements Serializable {
    * @param noChildren
    *                   number of children to be transfered.
    */
-
-  public final void addChildAt(Node child, final int indexAt) {
-    // final Node child = new Node();
-    // child.setType(type);
-    // child.setName(name);
-    this.children.add(indexAt, child);
-    child.setParent(this);
-    // child.setChildren(newChildren);
-  }
-
-  // New attribute to indicate if the node is part of the selected path
-  private boolean isSelected = false; // Added isSelected flag
-
-  // Method to select the path
-  public void selectPath() {
-    this.isSelected = true;
-    if (this.parent != null) {
-      this.parent.selectPath(); // Recursively select path upwards
-    }
-  }
-
-  // Method to clear the selection flag for this node and all its descendants
-  public void clearSelection() {
-    this.isSelected = false;
-    if (this.children != null) {
-      for (Node child : this.children) {
-        child.clearSelection();
-      }
-    }
-  }
-
-  // Getter for isSelected
-  public boolean isSelected() {
-    return isSelected; // Return selection status
-  }
-
-  // Setter for isSelected
-  public void setSelected(boolean selected) {
-    this.isSelected = selected; // Set the selection status
-    // If you need to perform additional actions when the selection state changes,
-    // such as updating the UI or notifying listeners, you can add that logic here.
-  }
-
-  public void selectNodeAndDescendants(boolean selected) {
-    this.setSelected(selected);
-    if (this.children != null) {
-      for (Node child : this.children) {
-        child.selectNodeAndDescendants(selected);
-      }
-    }
-  }
 
   protected ArrayList<Node> children;
   private String name;

@@ -1134,7 +1134,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     }
     // Before drawing the box, check if the node is selected and modify the fill
     // color
-    if (node.isSelected()) {
+    if (node.isSelected == true) {
       fillCol = new Color(255, 215, 0); // change color to indicate selection, for example
     }
     // get position of node
@@ -1181,7 +1181,7 @@ public abstract class AbstractTreeCanvas extends JPanel
       // break;
     }
     if (node.isSelected()) {
-      g.setStroke(new BasicStroke(3)); // thicker border for selected nodes
+      g.setStroke(new BasicStroke(4)); // thicker border for selected nodes
       g.setColor(Color.RED); // border color for selected nodes
       g.drawRect(x, y, (int) box.width - 1, (int) box.height - 1); // draw the rectangle border
     }
