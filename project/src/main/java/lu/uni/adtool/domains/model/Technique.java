@@ -8,6 +8,12 @@ public class Technique {
     private boolean enabled;
     private boolean showSubtechniques;
 
+    // Constructor for testing
+    public Technique(String techniqueID, String tactic) {
+        this.techniqueID = techniqueID;
+        this.tactic = tactic;
+    }
+
     // Getter and setter for techniqueID
     public String getTechniqueID() {
         return techniqueID;

@@ -20,6 +20,7 @@
  */
 package lu.uni.adtool.tree;
 
+import lu.uni.adtool.domains.model.Technique;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -82,6 +83,17 @@ public abstract class Node implements Serializable {
 
   public ArrayList<Node> getChildren() {
     return this.children;
+  }
+
+  private Technique technique; // ATT&CK Technique associated with the node
+
+  // Getter and setter for the technique
+  public Technique getTechnique() {
+    return technique;
+  }
+
+  public void setTechnique(Technique technique) {
+    this.technique = technique;
   }
 
   public final void addChildAt(Node child, final int indexAt) {

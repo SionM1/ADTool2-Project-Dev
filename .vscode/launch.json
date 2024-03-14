@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TechniqueMapperTest",
+            "request": "launch",
+            "mainClass": "lu.uni.adtool.domains.services.TechniqueMapperTest",
+            "projectName": "ADTool"
+        },
+        {
+            "type": "java",
             "name": "JsonLayerParser",
             "request": "launch",
             "mainClass": "lu.uni.adtool.tools.undo.JsonLayerParser",
