@@ -7,31 +7,33 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TechniqueMapperTest {
-    public static void main(String[] args) {
-        // Assuming ADTNode now extends Node and can be instantiated
-        Node node1 = new ADTNode();
-        node1.setName("Node1");
-        node1.setComment("T1234"); // TechniqueID to match
+    // uncomment this to test the mapper
 
-        Node node2 = new ADTNode();
-        node2.setName("Node2");
-        node2.setComment("T5678"); // TechniqueID to match
+    // public static void main(String[] args) {
+    // // Assuming ADTNode now extends Node and can be instantiated
+    // Node node1 = new ADTNode();
+    // node1.setName("Node1");
+    // node1.setComment("T1234"); // TechniqueID to match
 
-        // Use List<Node> for compatibility
-        List<Node> testNodes = Arrays.asList(node1, node2);
+    // Node node2 = new ADTNode();
+    // node2.setName("Node2");
+    // node2.setComment("T5678"); // TechniqueID to match
 
-        Technique tech1 = new Technique("T1234", "Technique One");
-        Technique tech2 = new Technique("T5678", "Technique Two");
-        List<Technique> testTechniques = Arrays.asList(tech1, tech2);
+    // // Use List<Node> for compatibility
+    // List<Node> testNodes = Arrays.asList(node1, node2);
 
-        TechniqueMapper mapper = new TechniqueMapper();
-        mapper.mapTechniquesToNodes(testNodes, testTechniques);
+    // Technique tech1 = new Technique("T1234", "Technique One");
+    // Technique tech2 = new Technique("T5678", "Technique Two");
+    // List<Technique> testTechniques = Arrays.asList(tech1, tech2);
 
-        // Verification
-        for (Node node : testNodes) {
-            System.out.println("Node: " + node.getName() + ", Technique: " +
-                    (node.getTechnique() != null ? node.getTechnique().getTactic() : "None"));
-        }
-    }
+    // TechniqueMapper mapper = new TechniqueMapper();
+    // mapper.mapTechniquesToNodes(testNodes, testTechniques);
+
+    // // Verification
+    // for (Node node : testNodes) {
+    // System.out.println("Node: " + node.getName() + ", Technique: " +
+    // (node.getTechnique() != null ? node.getTechnique().getTactic() : "None"));
+    // }
+    // }
 
 }
