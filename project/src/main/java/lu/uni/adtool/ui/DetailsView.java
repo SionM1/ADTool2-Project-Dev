@@ -65,6 +65,7 @@ public class DetailsView extends PermaDockable {
       public Dimension getMaximumSize() {
         return new Dimension(400, 300);
       }
+
       private static final long serialVersionUID = -6129269462785233124L;
     };
     text.setVerticalAlignment(SwingConstants.TOP);
@@ -84,15 +85,14 @@ public class DetailsView extends PermaDockable {
    * Assign canvas to this view.
    *
    * @param canvas
-   *          canvas.
+   *               canvas.
    */
   @SuppressWarnings("unchecked")
   public void assignCanvas(AbstractTreeCanvas canvas) {
     if (canvas instanceof AbstractDomainCanvas) {
       text.setText(((AbstractDomainCanvas<Ring>) canvas).getDomain().getDescription());
       // this.canvas = (DomainCanvas<Ring>)canvas;
-    }
-    else {
+    } else {
       text.setText(Options.getMsg("windows.details.nochosen"));
       // this.canvas=null;
     }

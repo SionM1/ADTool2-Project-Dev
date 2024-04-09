@@ -35,6 +35,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.xml.bind.Marshaller.Listener;
 
 import bibliothek.gui.DockFrontend;
 import bibliothek.gui.DockFrontend.DockInfo;
@@ -75,6 +76,7 @@ import lu.uni.adtool.ui.RankingDockable;
 import lu.uni.adtool.ui.StatusLine;
 import lu.uni.adtool.ui.TreeDockable;
 import lu.uni.adtool.ui.ValuationsDockable;
+import lu.uni.adtool.ui.AttackMatrixSideBarView;
 
 public final class ADToolMain extends JFrame {
 
@@ -94,7 +96,7 @@ public final class ADToolMain extends JFrame {
         }
       }
     });
-    CControl control = new CControl(this);
+    final CControl control = new CControl(this);
     control.intern().setLayoutChangeStrategy(new LayoutChangeStrategy(control));
     control.getController().getProperties().set(PlaceholderStrategy.PLACEHOLDER_STRATEGY,
         new PermaPlaceholderStrategy());
@@ -117,7 +119,7 @@ public final class ADToolMain extends JFrame {
     this.valuationsView = new ValuationsDockable(controller.getCopyHandler());
     this.rankingView = new RankingDockable();
     this.detailsView = new DetailsView();
-
+    this.attackMatrixSideBarView = new AttackMatrixSideBarView();
     CGrid grid = new CGrid(control);
 
     grid.add(0, 0, 3, 2, work);
@@ -125,15 +127,18 @@ public final class ADToolMain extends JFrame {
     grid.add(4, 0, 1, 2, this.valuationsView);
     grid.add(5, 0, 1, 2, this.rankingView);
     grid.add(6, 0, 1, 2, this.detailsView);
+    grid.add(7, 0, 1, 2, this.attackMatrixSideBarView);
+
     control.getContentArea().deploy(grid);
     this.valuationsView.doClose();
     this.rankingView.doClose();
     this.detailsView.doClose();
+    this.attackMatrixSideBarView.doClose();
+
     super.setJMenuBar(this.controller.getMenu());
     if (clo.getToOpen() == null) {
       Options.tryLoadLayout(control, this);
-    }
-    else {
+    } else {
       XmlConverter converter = new XmlConverter();
       for (String fileName : clo.getToOpen()) {
         FileInputStream in;
@@ -222,6 +227,10 @@ public final class ADToolMain extends JFrame {
     return this.controller;
   }
 
+  public AttackMatrixSideBarView getAttackMatrixSideBarView() {
+    return attackMatrixSideBarView;
+  }
+
   /**
    * Status bar
    */
@@ -230,6 +239,7 @@ public final class ADToolMain extends JFrame {
   private ValuationsDockable valuationsView;
   private RankingDockable rankingView;
   private DetailsView detailsView;
+  private AttackMatrixSideBarView attackMatrixSideBarView;
   private static final long serialVersionUID = 2554846105872850570L;
   private TreeFactory treeFactory;
   private DomainFactory domainFactory;
@@ -282,17 +292,17 @@ public final class ADToolMain extends JFrame {
      * It also checks and adds stations and work areas that are not present.
      *
      * @param frontend
-     *            the caller of this method
+     *                  the caller of this method
      * @param situation
-     *            used to convert the layout
+     *                  used to convert the layout
      * @param setting
-     *            the new layout
+     *                  the new layout
      * @param entry
-     *            whether the layout is a full or regular layout
+     *                  whether the layout is a full or regular layout
      * @throws IOException
-     *             if the layout cannot be converted
+     *                     if the layout cannot be converted
      * @throws XException
-     *             if the layout cannot be converted
+     *                     if the layout cannot be converted
      */
     protected void applyLayout(DockFrontendInternals frontend, DockSituation situation, SettingAccess setting,
         boolean entry) throws IOException, XException {
