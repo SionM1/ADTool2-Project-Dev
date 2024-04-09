@@ -67,4 +67,18 @@ public class AttackMatrixSideBarView extends PermaDockable {
     public void updateContent(String content) {
         text.setText(content);
     }
+
+    /**
+     * Assign canvas to this view.
+     *
+     * @param canvas the canvas to be assigned.
+     */
+    @SuppressWarnings("unchecked")
+    public void assignCanvas(AbstractTreeCanvas canvas) {
+        if (canvas instanceof AbstractDomainCanvas) {
+            text.setText(((AbstractDomainCanvas<Ring>) canvas).getDomain().getDescription());
+        } else {
+            text.setText(Options.getMsg("windows.attackMatrix.nochosen"));
+        }
+    }
 }
