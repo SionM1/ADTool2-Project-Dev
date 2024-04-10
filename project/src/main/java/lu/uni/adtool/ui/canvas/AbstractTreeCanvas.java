@@ -1135,7 +1135,7 @@ public abstract class AbstractTreeCanvas extends JPanel
     // Before drawing the box, check if the node is selected and modify the fill
     // color
     if (node.isSelected == true) {
-      fillCol = new Color(255, 215, 0); // change color to indicate selection, for example
+      fillCol = new Color(255, 215, 0); // change color to indicate selection
     }
     // get position of node
     final Rectangle2D.Double box = bufferedLayout.get(node);
