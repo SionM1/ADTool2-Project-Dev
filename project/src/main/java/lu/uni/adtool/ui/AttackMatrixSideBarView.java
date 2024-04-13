@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.util.List;
+import java.util.Arrays;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import lu.uni.adtool.tools.Options;
@@ -25,7 +26,7 @@ public class AttackMatrixSideBarView extends PermaDockable {
     private DefaultTableModel tableModel;
     private JTable table;
     private JsonLayerParser jsonLayerParser;
-    private Layer reconnaissanceLayer;
+    private List<Layer> layers;
 
     public static final String ID_VIEW = "attack_matrix_view";
 
@@ -36,10 +37,24 @@ public class AttackMatrixSideBarView extends PermaDockable {
                 Options.getMsg("windows.attackMatrix.txt"));
         this.setTitleIcon(icon);
 
-        // Initialize JsonLayerParser and load the reconnaissance layer
+        // Initialize JsonLayerParser and load the layers
         jsonLayerParser = new JsonLayerParser();
-        reconnaissanceLayer = jsonLayerParser.parseLayer("JsonFile/ReconnaissanceLayer.json");
+        List<String> jsonFilePaths = Arrays.asList(
+                "JsonFile/ReconnaissanceLayer.json",
+                "JsonFile/ResourceDevelopmentLayer.json",
+                "JsonFile/InitialAccessLayer.json",
+                "JsonFile/CollectionLayer.json",
+                "JsonFile/CommandAndControlLayer.json",
+                "JsonFile/ExfiltrationLayer.json",
+                "JsonFile/DefenseEvasionLayer.json",
+                "JsonFile/CredentialAccessLayer.json",
+                "JsonFile/DiscoveryLayer.json",
+                "JsonFile/LateralMovementLayer.json",
+                "JsonFile/PersistenceLayer.json",
+                "JsonFile/PrivilegeEscalationLayer.json",
+                "JsonFile/ExecutionLayer.json");
 
+        layers = jsonLayerParser.parseLayers(jsonFilePaths);
     }
 
     private void initLayout() {
@@ -71,23 +86,25 @@ public class AttackMatrixSideBarView extends PermaDockable {
             AbstractDomainCanvas<Ring> domainCanvas = (AbstractDomainCanvas<Ring>) canvas;
             List<Node> selectedNodes = domainCanvas.collectSelectedNodes();
             tableModel.setRowCount(0); // Clear previous entries
-            displayReconnaissanceLayerInfo(selectedNodes);
+            displayLayerInfo(selectedNodes);
         }
     }
 
-    private void displayReconnaissanceLayerInfo(List<Node> selectedNodes) {
+    private void displayLayerInfo(List<Node> selectedNodes) {
         tableModel.setRowCount(0); // Clear previous entries
         for (Node selectedNode : selectedNodes) {
-            for (Technique technique : reconnaissanceLayer.getTechniques()) {
-                if (technique.getTechniqueID().equals(selectedNode.getComment())) {
-                    tableModel.addRow(new Object[] {
-                            technique.getTechniqueID(),
-                            technique.getTactic(),
-                            technique.getColor(),
-                            technique.getComment(),
-                            technique.isEnabled(),
-                            technique.isShowSubtechniques()
-                    });
+            for (Layer layer : layers) {
+                for (Technique technique : layer.getTechniques()) {
+                    if (technique.getTechniqueID().equals(selectedNode.getComment())) {
+                        tableModel.addRow(new Object[] {
+                                technique.getTechniqueID(),
+                                technique.getTactic(),
+                                technique.getColor(),
+                                technique.getComment(),
+                                technique.isEnabled(),
+                                technique.isShowSubtechniques()
+                        });
+                    }
                 }
             }
         }
