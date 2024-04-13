@@ -1,5 +1,5 @@
 {
-	"name": "Reconnaissance",
+	"name": "Collection",
 	"versions": {
 		"attack": "14",
 		"navigator": "4.9.4",
@@ -26,7 +26,7 @@
 	"layout": {
 		"layout": "side",
 		"aggregateFunction": "average",
-		"showID": false,
+		"showID": true,
 		"showName": true,
 		"showAggregateScores": false,
 		"countUnscored": false,
@@ -35,8 +35,8 @@
 	"hideDisabled": false,
 	"techniques": [
 		{
-			"techniqueID": "T1592",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1557",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -45,8 +45,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1589",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1602",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -55,8 +55,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1596",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1114",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -65,8 +65,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1595",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1560",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -75,8 +75,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1591",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1074",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -85,8 +85,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1590",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1056",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -95,28 +95,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1593",
-			"tactic": "reconnaissance",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"links": [],
-			"showSubtechniques": true
-		},
-		{
-			"techniqueID": "T1597",
-			"tactic": "reconnaissance",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"links": [],
-			"showSubtechniques": true
-		},
-		{
-			"techniqueID": "T1598",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1213",
+			"tactic": "collection",
 			"color": "",
 			"comment": "",
 			"enabled": true,

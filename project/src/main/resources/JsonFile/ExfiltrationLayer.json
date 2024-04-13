@@ -1,5 +1,5 @@
 {
-	"name": "Reconnaissance",
+	"name": "Exfiltration",
 	"versions": {
 		"attack": "14",
 		"navigator": "4.9.4",
@@ -26,7 +26,7 @@
 	"layout": {
 		"layout": "side",
 		"aggregateFunction": "average",
-		"showID": false,
+		"showID": true,
 		"showName": true,
 		"showAggregateScores": false,
 		"countUnscored": false,
@@ -35,8 +35,8 @@
 	"hideDisabled": false,
 	"techniques": [
 		{
-			"techniqueID": "T1592",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1567",
+			"tactic": "exfiltration",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -45,8 +45,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1589",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1011",
+			"tactic": "exfiltration",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -55,8 +55,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1596",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1020",
+			"tactic": "exfiltration",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -65,8 +65,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1595",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1048",
+			"tactic": "exfiltration",
 			"color": "",
 			"comment": "",
 			"enabled": true,
@@ -75,48 +75,8 @@
 			"showSubtechniques": true
 		},
 		{
-			"techniqueID": "T1591",
-			"tactic": "reconnaissance",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"links": [],
-			"showSubtechniques": true
-		},
-		{
-			"techniqueID": "T1590",
-			"tactic": "reconnaissance",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"links": [],
-			"showSubtechniques": true
-		},
-		{
-			"techniqueID": "T1593",
-			"tactic": "reconnaissance",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"links": [],
-			"showSubtechniques": true
-		},
-		{
-			"techniqueID": "T1597",
-			"tactic": "reconnaissance",
-			"color": "",
-			"comment": "",
-			"enabled": true,
-			"metadata": [],
-			"links": [],
-			"showSubtechniques": true
-		},
-		{
-			"techniqueID": "T1598",
-			"tactic": "reconnaissance",
+			"techniqueID": "T1052",
+			"tactic": "exfiltration",
 			"color": "",
 			"comment": "",
 			"enabled": true,
