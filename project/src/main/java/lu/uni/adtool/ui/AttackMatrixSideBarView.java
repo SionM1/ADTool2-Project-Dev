@@ -72,10 +72,13 @@ public class AttackMatrixSideBarView extends PermaDockable {
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Technique ID");
         tableModel.addColumn("Tactic");
-        tableModel.addColumn("Color");
-        tableModel.addColumn("Comment");
+        // tableModel.addColumn("Color");
+        // tableModel.addColumn("Comment");
         tableModel.addColumn("Enabled");
         tableModel.addColumn("Show Subtechniques");
+        tableModel.addColumn("Desciption");
+        tableModel.addColumn("URL");
+        tableModel.addColumn("Mitigation");
         table = new JTable(tableModel);
         table.setFont(new Font("Sans", Font.TRUETYPE_FONT, 13));
         table.setFillsViewportHeight(true); // Fill the viewport height
@@ -99,10 +102,13 @@ public class AttackMatrixSideBarView extends PermaDockable {
                         tableModel.addRow(new Object[] {
                                 technique.getTechniqueID(),
                                 technique.getTactic(),
-                                technique.getColor(),
-                                technique.getComment(),
+                                // technique.getColor(),
+                                // technique.getComment(),
                                 technique.isEnabled(),
-                                technique.isShowSubtechniques()
+                                technique.isShowSubtechniques(),
+                                technique.getDescription(),
+                                technique.getUrl(),
+                                technique.getMitigation()
                         });
                     }
                 }

@@ -42,7 +42,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1583",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1584",
@@ -52,7 +55,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1584",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1586",
@@ -62,7 +68,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1586",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1608",
@@ -72,7 +81,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1608",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1585",
@@ -82,7 +94,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1585",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1588",
@@ -92,7 +107,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1588",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1587",
@@ -102,7 +120,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1587",
+			"mitigation": ""
 		}
 	],
 	"gradient": {

@@ -42,7 +42,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1550",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1021",
@@ -52,7 +55,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1021",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1563",
@@ -62,7 +68,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1563",
+			"mitigation": ""
 		}
 	],
 	"gradient": {

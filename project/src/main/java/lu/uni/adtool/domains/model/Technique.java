@@ -7,6 +7,9 @@ public class Technique {
     private String comment;
     private boolean enabled;
     private boolean showSubtechniques;
+    private String description;
+    private String url;
+    private String mitigation;
 
     // Constructor for testing
     public Technique(String techniqueID, String tactic) {
@@ -66,5 +69,30 @@ public class Technique {
 
     public void setShowSubtechniques(boolean showSubtechniques) {
         this.showSubtechniques = showSubtechniques;
+    }
+
+    public String getDescription() {
+        return description;
+
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getMitigation() {
+        return mitigation;
+    }
+
+    public void setMitigation(String mitigation) {
+        this.mitigation = mitigation;
     }
 }

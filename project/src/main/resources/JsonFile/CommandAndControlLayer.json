@@ -42,7 +42,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1071",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1205",
@@ -52,7 +55,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1205",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1090",
@@ -62,7 +68,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1090",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1568",
@@ -72,7 +81,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1568",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1102",
@@ -82,7 +94,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1102",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1001",
@@ -92,7 +107,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1001",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1573",
@@ -102,7 +120,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1573",
+			"mitigation": ""
 		},
 		{
 			"techniqueID": "T1132",
@@ -112,7 +133,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "",
+			"url": "https://attack.mitre.org/techniques/T1132",
+			"mitigation": ""
 		}
 	],
 	"gradient": {

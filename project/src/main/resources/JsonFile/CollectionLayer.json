@@ -42,8 +42,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
-		},
+			"showSubtechniques": true,
+			"description": "Adversaries may attempt to position themselves between two or more networked devices using an adversary-in-the-middle (AiTM) technique to support follow-on behaviors such as Network Sniffing, Transmitted Data Manipulation, or replay attacks (Exploitation for Credential Access). By abusing features of common networking protocols that can determine the flow of network traffic (e.g. ARP, DNS, LLMNR, etc.), adversaries may force a device to communicate through an adversary controlled system so they can collect information or perform additional actions.[",
+			"url": "https://attack.mitre.org/techniques/T1557",
+			"mitigation": "M1042: Disable or Remove Feature or Program, Disable legacy network protocols that may be used to intercept network traffic if applicable, especially those that are not needed within an environment.M1041:Encrypt Sensitive Information, Ensure that all wired and/or wireless traffic is encrypted appropriately. Use best practices for authentication protocols, such as Kerberos, and ensure web traffic that may contain credentials is protected by SSL/TLS. M1037:Filter Network Traffic, Use network appliances and host-based security software to block network traffic that is not necessary within the environment, such as legacy protocols that may be leveraged for AiTM conditions. M1035: Limit Access to Resource Over Network Limit access to network infrastructure and resources that can be used to reshape traffic or otherwise produce AiTM conditions. M1031:Network Intrusion Prevention, Network intrusion detection and prevention systems that can identify traffic patterns indicative of AiTM activity can be used to mitigate activity at the network level. M1030: Network Segmentation, Network segmentation can be used to isolate infrastructure components that do not require broad network access. This may mitigate, or at least alleviate, the scope of AiTM activity. M1017: User Training, Train users to be suspicious about certificate errors. Adversaries may use their own certificates in an attempt to intercept HTTPS traffic. Certificate errors may arise when the application’s certificate does not match the one expected by the host."},
 		{
 			"techniqueID": "T1602",
 			"tactic": "collection",
@@ -52,7 +54,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may collect data related to managed devices from configuration repositories. Configuration repositories are used by management systems in order to configure, manage, and control data on remote systems. Configuration repositories may also facilitate remote access and administration of devices.",
+			"url": "https://attack.mitre.org/techniques/T1602",
+			"mitigation": "M1041 Encrypt Sensitive Information M1037: Filter Network Traffic, Apply extended ACLs to block unauthorized protocols outside the trusted network. M1031: Network Intrusion Prevention, Configure intrusion prevention devices to detect SNMP queries and commands from unauthorized sources M1030: Network Segmentation, Segregate SNMP traffic on a separate management network. M1054: Software Configuration, Allowlist MIB objects and implement SNMP views. M1051: Update Software, Keep system images and software updated and migrate to SNMPv3 "
 		},
 		{
 			"techniqueID": "T1114",
@@ -62,7 +67,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may target user email to collect sensitive information. Emails may contain sensitive data, including trade secrets or personal information, that can prove valuable to adversaries. Adversaries can collect or forward email from mail servers or clients.",
+			"url": "https://attack.mitre.org/techniques/T1114/",
+			"mitigation": "M1047: Audit , M1041:Encrypt Sensitive Information , M1032: Multi-factor Authentication"
 		},
 		{
 			"techniqueID": "T1560",
@@ -72,7 +80,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "An adversary may compress and/or encrypt data that is collected prior to exfiltration. Compressing the data can help to obfuscate the collected data and minimize the amount of data sent over the network. Encryption can be used to hide information that is being exfiltrated from detection or make exfiltration less conspicuous upon inspection by a defender.",
+			"url": "https://attack.mitre.org/techniques/T1560",
+			"mitigation": "M1047: Audit"
 		},
 		{
 			"techniqueID": "T1074",
@@ -82,7 +93,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may stage collected data in a central location or directory prior to Exfiltration. Data may be kept in separate files or combined into one file through techniques such as Archive Collected Data. Interactive command shells may be used, and common functionality within cmd and bash may be used to copy data into a staging location.",
+			"url": "https://attack.mitre.org/techniques/T1074",
+			"mitigation": "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
 		},
 		{
 			"techniqueID": "T1056",
@@ -92,7 +106,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may use methods of capturing user input to obtain credentials or collect information. During normal system usage, users often provide credentials to various different locations, such as login pages/portals or system dialog boxes. Input capture mechanisms may be transparent to the user (e.g. Credential API Hooking) or rely on deceiving the user into providing input into what they believe to be a genuine service (e.g. Web Portal Capture).",
+			"url": "https://attack.mitre.org/techniques/T1056/",
+			"mitigation": "This type of attack technique cannot be easily mitigated with preventive controls since it is based on the abuse of system features."
 		},
 		{
 			"techniqueID": "T1213",
@@ -102,7 +119,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may leverage information repositories to mine valuable information. Information repositories are tools that allow for storage of information, typically to facilitate collaboration or information sharing between users, and can store a wide variety of data that may aid adversaries in further objectives, or direct access to the target information. Adversaries may also abuse external sharing features to share sensitive documents with recipients outside of the organization.",
+			"url": "https://attack.mitre.org/techniques/T1213",
+			"mitigation": "M1047: Audit, M1018:User Account Management, M1017: User Training"
 		}
 	],
 	"gradient": {

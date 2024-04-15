@@ -42,8 +42,11 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
-		},
+			"showSubtechniques": true,
+			"description": "Adversaries may gather information about the victim's hosts that can be used during targeting. Information about hosts may include a variety of details, including administrative data (ex: name, assigned IP, functionality, etc.) as well as specifics regarding its configuration (ex: operating system, language, etc.).",
+      		"url": "https://attack.mitre.org/techniques/T1592",
+      		"mitigation": "M10: Pre-compromise, This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
+			},
 		{
 			"techniqueID": "T1589",
 			"tactic": "reconnaissance",
@@ -52,8 +55,12 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
-		},
+			"showSubtechniques": true,
+			"description": "Adversaries may gather information about the victim's identity that can be used during targeting. Information about identities may include a variety of details, including personal data (ex: employee names, email addresses, etc.) as well as sensitive details such as credentials.",
+			"url": "https://attack.mitre.org/techniques/T1589",
+      		"mitigation": "M1056: Pre-compromise, This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
+			},
+			
 		{
 			"techniqueID": "T1596",
 			"tactic": "reconnaissance",
@@ -62,8 +69,11 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
-		},
+			"showSubtechniques": true,
+			"description": "Adversaries may search freely available technical databases for information about victims that can be used during targeting. Information about victims may be available in online databases and repositories, such as registrations of domains/certificates as well as public collections of network data/artifacts gathered from traffic and/or scans.",
+			"url": "https://attack.mitre.org/techniques/T1596",
+			"mitigation": "M105:Pre-compromise, This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
+			},
 		{
 			"techniqueID": "T1595",
 			"tactic": "reconnaissance",
@@ -72,7 +82,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may execute active reconnaissance scans to gather information that can be used during targeting. Active scans are those where the adversary probes victim infrastructure via network traffic, as opposed to other forms of reconnaissance that do not involve direct interaction.",
+			"url": "https://attack.mitre.org/techniques/T1595",
+			"mitigation": "M1056:Pre-compromise,This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
 		},
 		{
 			"techniqueID": "T1591",
@@ -82,7 +95,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may gather information about the victim's organization that can be used during targeting. Information about an organization may include a variety of details, including the names of divisions/departments, specifics of business operations, as well as the roles and responsibilities of key employees.",
+			"url": "https://attack.mitre.org/techniques/T1591",
+			"mitigation": "M1056:Pre-compromise, This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
 		},
 		{
 			"techniqueID": "T1590",
@@ -92,7 +108,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may gather information about the victim's networks that can be used during targeting. Information about networks may include a variety of details, including administrative data (ex: IP ranges, domain names, etc.) as well as specifics regarding its topology and operations.",
+			"url": "https://attack.mitre.org/techniques/T1590",
+			"mitigation": "M1056: Pre-compromise, This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
 		},
 		{
 			"techniqueID": "T1593",
@@ -102,7 +121,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may search freely available websites and/or domains for information about victims that can be used during targeting. Information about victims may be available in various online sites, such as social media, new sites, or those hosting information about business operations such as hiring or requested/rewarded contracts.",
+			"url": "https://attack.mitre.org/techniques/T1593",
+			"mitigation": "M1013: Application Developer Guidance, Application developers uploading to public code repositories should be careful to avoid publishing sensitive information such as credentials and API keys. M1047: Audit, Scan public code repositories for exposed credentials or other sensitive information before making commits. Ensure that any leaked credentials are removed from the commit history, not just the current latest version of the code."
 		},
 		{
 			"techniqueID": "T1597",
@@ -112,7 +134,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may search and gather information about victims from closed sources that can be used during targeting. Information about victims may be available for purchase from reputable private sources and databases, such as paid subscriptions to feeds of technical/threat intelligence data.[1] Adversaries may also purchase information from less-reputable sources such as dark web or cybercrime blackmarkets.[",
+			"url": "https://attack.mitre.org/techniques/T1597",
+			"mitigation": "M1056: Pre-compromise, This technique cannot be easily mitigated with preventive controls since it is based on behaviors performed outside of the scope of enterprise defenses and controls. Efforts should focus on minimizing the amount and sensitivity of data available to external parties."
 		},
 		{
 			"techniqueID": "T1598",
@@ -122,7 +147,10 @@
 			"enabled": true,
 			"metadata": [],
 			"links": [],
-			"showSubtechniques": true
+			"showSubtechniques": true,
+			"description": "Adversaries may send phishing messages to elicit sensitive information that can be used during targeting. Phishing for information is an attempt to trick targets into divulging information, frequently credentials or other actionable information. Phishing for information is different from Phishing in that the objective is gathering data from the victim rather than executing malicious code.",
+			"url": "https://attack.mitre.org/techniques/T1598",
+			"mitigation": "M1054:Software Configuration, Use anti-spoofing and email authentication mechanisms to filter messages based on validity checks of the sender domain (using SPF) and integrity of messages (using DKIM). Enabling these mechanisms within an organization (through policies such as DMARC) may enable recipients (intra-org and cross domain) to perform similar message filtering and validation. M1017: User Training, Users can be trained to identify social engineering techniques and spearphishing attempts."
 		}
 	],
 	"gradient": {
